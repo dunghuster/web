@@ -1,0 +1,440 @@
+{% extends "base.html" %}
+{% block title %}Ticket #{{ ticket.id }}{% endblock %}
+
+{% block extra_css %}
+<style>
+  .ticket-wrap{
+    margin-top: 18px;
+    border-radius: 18px;
+    border: 1px solid var(--border);
+    background: linear-gradient(180deg, rgba(20,28,46,0.92), rgba(14,20,36,0.92));
+    box-shadow: 0 18px 55px rgba(0,0,0,0.55);
+    overflow: hidden;
+  }
+
+  .ticket-head{
+    padding: 18px 18px;
+    border-bottom: 1px solid var(--border);
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    background: rgba(15,22,38,0.65);
+  }
+
+  .ticket-title{
+    display:flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .ticket-icon{
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background: #0f1626;
+    border: 1px solid var(--border);
+    color: var(--cyan);
+    box-shadow: 0 0 18px rgba(126,242,255,0.10);
+    flex: 0 0 auto;
+  }
+
+  .ticket-title h2{
+    margin: 0 0 6px 0;
+    font-size: 1.15rem;
+    line-height: 1.2;
+  }
+  .ticket-meta{
+    margin:0;
+    color: var(--muted);
+    font-size: 0.93rem;
+  }
+
+  .status-badge{
+    display:inline-flex;
+    align-items:center;
+    gap: 8px;
+    padding: 7px 11px;
+    border-radius: 999px;
+    font-weight: 900;
+    font-size: 0.82rem;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.03);
+    color: var(--muted);
+    user-select: none;
+  }
+  .status-dot{
+    width: 10px; height: 10px; border-radius: 50%;
+  }
+  .st-open .status-dot{ background: var(--red); box-shadow: 0 0 10px rgba(255,85,85,0.25); }
+  .st-answered .status-dot{ background: var(--primary); box-shadow: 0 0 10px rgba(91,140,255,0.25); }
+  .st-closed .status-dot{ background: var(--green); box-shadow: 0 0 10px rgba(69,243,163,0.25); }
+
+  .head-actions{
+    display:flex; gap: 10px; align-items:center; flex-wrap: wrap;
+  }
+
+  #chatBox{
+    height: 560px;
+    padding: 18px;
+    overflow-y: auto;
+    background: radial-gradient(900px 380px at 20% 0%, rgba(126,242,255,0.08), transparent 55%),
+                radial-gradient(900px 380px at 80% 40%, rgba(184,107,255,0.08), transparent 55%),
+                #0b101a;
+    display:flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .msg-row{
+    display:flex;
+  }
+  .msg-row.me{ justify-content: flex-end; }
+  .msg-row.other{ justify-content: flex-start; }
+
+  .bubble{
+    width: min(680px, 78%);
+    border-radius: 16px;
+    border: 1px solid rgba(38,50,73,0.9);
+    background: rgba(15,22,38,0.75);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.35);
+    overflow: hidden;
+  }
+  .bubble.me{
+    background: rgba(37,99,235,0.22);
+    border-color: rgba(91,140,255,0.55);
+  }
+  .bubble.admin{
+    background: rgba(126,242,255,0.12);
+    border-color: rgba(126,242,255,0.35);
+  }
+
+  .bubble-head{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(38,50,73,0.7);
+    background: rgba(255,255,255,0.02);
+  }
+  .who{
+    display:flex; align-items:center; gap: 10px;
+    font-weight: 900;
+    color: var(--text);
+    font-size: 0.92rem;
+  }
+  .who .mini-icon{
+    width: 26px; height: 26px;
+    border-radius: 10px;
+    display:flex; align-items:center; justify-content:center;
+    border: 1px solid rgba(38,50,73,0.9);
+    background: #0f1626;
+    color: var(--muted);
+    flex: 0 0 auto;
+    font-size: 13px;
+  }
+  .who .tag{
+    font-size: 0.75rem;
+    font-weight: 900;
+    padding: 4px 8px;
+    border-radius: 999px;
+    border: 1px solid rgba(38,50,73,0.85);
+    color: var(--muted);
+    background: rgba(255,255,255,0.02);
+  }
+  .who .tag.admin{
+    border-color: rgba(126,242,255,0.35);
+    color: var(--cyan);
+    background: rgba(126,242,255,0.08);
+  }
+  .time{
+    font-size: 0.78rem;
+    color: var(--muted);
+    font-weight: 800;
+    white-space: nowrap;
+  }
+
+  .bubble-body{
+    padding: 12px 12px 14px 12px;
+    color: var(--text);
+    line-height: 1.55;
+    word-break: break-word;
+  }
+
+  #replyArea{
+    padding: 14px;
+    border-top: 1px solid var(--border);
+    background: rgba(15,22,38,0.65);
+    display:flex;
+    gap: 10px;
+    align-items: flex-end;
+  }
+  #replyMsg{
+    flex: 1;
+    min-height: 92px;
+    padding: 12px 12px;
+    border-radius: 14px;
+    border: 1px solid rgba(38,50,73,0.9);
+    background: #0f1626;
+    color: var(--text);
+    outline: none;
+    transition: 0.15s;
+    resize: vertical;
+  }
+  #replyMsg:focus{
+    border-color: rgba(126,242,255,0.55);
+    box-shadow: 0 0 0 4px rgba(126,242,255,0.10);
+  }
+  .send-btn{
+    display:flex;
+    align-items:center;
+    gap: 8px;
+    padding: 12px 14px;
+    border-radius: 14px;
+    font-weight: 900;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 900px){
+    #chatBox{ height: 520px; }
+    .bubble{ width: 92%; }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<a href="/tickets" style="color: #9aa4b2; text-decoration: none; font-weight: bold;">← Quay lại</a>
+
+<div class="ticket-wrap">
+  <div class="ticket-head">
+    <div class="ticket-title">
+      <div class="ticket-icon">
+        <i class="fa-solid fa-ticket"></i>
+      </div>
+      <div>
+        <h2>Ticket #{{ ticket.id }}: {{ ticket.title }}</h2>
+        <p class="ticket-meta">
+          <i class="fa-solid fa-user"></i>
+          Người gửi: <b>{{ ticket.user.username }}</b>
+        </p>
+
+        <div style="margin-top:10px;">
+          <span id="statusBadge" class="status-badge">
+            <span class="status-dot"></span>
+            <span id="statusText">{{ ticket.status }}</span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="head-actions">
+      {% if current_user.is_admin and ticket.status != 'closed' %}
+        <button id="closeBtn" onclick="closeTicket()" class="btn btn-secondary">
+          <i class="fa-solid fa-lock"></i> Đóng Ticket
+        </button>
+      {% endif %}
+    </div>
+  </div>
+
+  <div id="chatBox">
+    <!-- render by js -->
+  </div>
+
+  <div id="replyArea" {% if ticket.status == 'closed' %}style="display:none;"{% endif %}>
+    <textarea id="replyMsg" placeholder="Nhập tin nhắn... (Enter để xuống dòng)"></textarea>
+    <button id="sendBtn" onclick="sendReply()" class="btn btn-primary send-btn">
+      <i class="fa-solid fa-paper-plane"></i> Gửi
+    </button>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  let currentMsgCount = 0;
+  let lastStatus = "{{ ticket.status }}";
+  const chatBox = document.getElementById('chatBox');
+
+  function statusToBadgeClass(status){
+    if (status === 'answered') return 'st-answered';
+    if (status === 'closed') return 'st-closed';
+    return 'st-open';
+  }
+  function statusToText(status){
+    // nếu muốn đổi text tiếng Việt thì sửa ở đây
+    return status;
+  }
+
+  function setClosedUI(isClosed) {
+    const replyArea = document.getElementById('replyArea');
+    const msgInput = document.getElementById('replyMsg');
+    const sendBtn = document.getElementById('sendBtn');
+    const closeBtn = document.getElementById('closeBtn');
+
+    if (isClosed) {
+      if (replyArea) replyArea.style.display = "none";
+      if (msgInput) msgInput.disabled = true;
+      if (sendBtn) sendBtn.disabled = true;
+      if (closeBtn) closeBtn.remove();
+    } else {
+      if (replyArea) replyArea.style.display = "flex";
+      if (msgInput) msgInput.disabled = false;
+      if (sendBtn) sendBtn.disabled = false;
+    }
+  }
+
+  function setStatusBadge(status) {
+    const badge = document.getElementById('statusBadge');
+    const text = document.getElementById('statusText');
+    if (text) text.innerText = statusToText(status);
+
+    if (badge) {
+      badge.classList.remove('st-open', 'st-answered', 'st-closed');
+      badge.classList.add(statusToBadgeClass(status));
+    }
+  }
+
+  function escapeHtml(s){
+    return (s ?? '').toString()
+      .replaceAll('&','&amp;').replaceAll('<','&lt;')
+      .replaceAll('>','&gt;').replaceAll('"','&quot;')
+      .replaceAll("'","&#039;");
+  }
+
+  function renderMessages(messages) {
+    chatBox.innerHTML = '';
+    messages.forEach(msg => {
+      const row = document.createElement('div');
+      row.className = 'msg-row ' + (msg.is_me ? 'me' : 'other');
+
+      const bubble = document.createElement('div');
+      bubble.className = 'bubble ' + (msg.is_me ? 'me' : (msg.is_admin ? 'admin' : ''));
+
+      const head = document.createElement('div');
+      head.className = 'bubble-head';
+
+      const who = document.createElement('div');
+      who.className = 'who';
+
+      const icon = document.createElement('div');
+      icon.className = 'mini-icon';
+      icon.innerHTML = msg.is_me ? '<i class="fa-solid fa-user"></i>'
+                   : (msg.is_admin ? '<i class="fa-solid fa-shield-halved"></i>' : '<i class="fa-solid fa-user"></i>');
+
+      const name = document.createElement('div');
+      const title = msg.is_me ? 'Bạn' : msg.sender_name;
+      const tag = msg.is_admin && !msg.is_me ? `<span class="tag admin">ADMIN</span>` : '';
+      name.innerHTML = `${escapeHtml(title)} ${tag}`;
+
+      who.appendChild(icon);
+      who.appendChild(name);
+
+      const time = document.createElement('div');
+      time.className = 'time';
+      time.innerText = msg.time;
+
+      head.appendChild(who);
+      head.appendChild(time);
+
+      const body = document.createElement('div');
+      body.className = 'bubble-body';
+      // msg.message của bạn đang là HTML (vì bubble.innerHTML trước đó), giữ nguyên nếu bạn cần bold/linebreak.
+      // Nếu muốn an toàn XSS, đổi sang: body.innerText = msg.message;
+      body.innerHTML = msg.message;
+
+      bubble.appendChild(head);
+      bubble.appendChild(body);
+      row.appendChild(bubble);
+      chatBox.appendChild(row);
+    });
+
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+
+  async function loadMessages() {
+    try {
+      const res = await fetch('/api/ticket/{{ ticket.id }}/messages', { cache: 'no-store' });
+      if (res.status === 401) return window.location.href = "/login";
+      if (!res.ok) return;
+
+      const data = await res.json();
+
+      // status realtime
+      if (data.status && data.status !== lastStatus) {
+        lastStatus = data.status;
+        setStatusBadge(lastStatus);
+        const closed = lastStatus === 'closed';
+        setClosedUI(closed);
+        if (closed) showNotification?.("Ticket đã được đóng.", "warning");
+      }
+
+      // messages update
+      if (Array.isArray(data.messages) && data.messages.length !== currentMsgCount) {
+        currentMsgCount = data.messages.length;
+        renderMessages(data.messages);
+      }
+    } catch(e) {}
+  }
+
+  async function sendReply() {
+    const msgInput = document.getElementById('replyMsg');
+    const message = msgInput.value;
+    if (!message.trim()) return;
+
+    msgInput.disabled = true;
+    try {
+      const res = await fetch('/ticket/{{ ticket.id }}', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({message})
+      });
+
+      if (res.status === 401) return window.location.href = "/login";
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        showNotification?.(data.error || "Gửi thất bại", "error");
+      } else {
+        msgInput.value = '';
+        await loadMessages();
+      }
+    } finally {
+      msgInput.disabled = false;
+      msgInput.focus();
+    }
+  }
+
+  async function closeTicket() {
+    if (!confirm("Đóng ticket này?")) return;
+
+    const res = await fetch('/ticket/{{ ticket.id }}', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({action:'close'})
+    });
+
+    if (res.status === 401) return window.location.href = "/login";
+
+    if (res.ok) {
+      lastStatus = 'closed';
+      setStatusBadge('closed');
+      setClosedUI(true);
+      showNotification?.("Đã đóng ticket.", "success");
+    } else {
+      const data = await res.json().catch(() => ({}));
+      showNotification?.(data.error || "Không đóng được ticket", "error");
+    }
+  }
+
+  // init
+  setStatusBadge(lastStatus);
+  setClosedUI(lastStatus === 'closed');
+
+  setInterval(loadMessages, 2500);
+  loadMessages();
+</script>
+{% endblock %}

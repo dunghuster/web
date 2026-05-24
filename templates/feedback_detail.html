@@ -1,0 +1,461 @@
+{% extends "base.html" %}
+{% block title %}Góp ý #{{ post.id }}{% endblock %}
+
+{% block extra_css %}
+<style>
+  .panel{
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 18px;
+    box-shadow: 0 16px 45px rgba(0,0,0,0.45);
+  }
+  .muted{ color: var(--muted); }
+
+  .post-head{
+    display:flex; justify-content:space-between; align-items:flex-start;
+    gap: 12px; flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+  .title{
+    font-size: 1.25rem;
+    font-weight: 950;
+    margin: 0 0 8px 0;
+  }
+  .meta{ margin:0; color: var(--muted); font-size: 0.95rem; }
+
+  .badge{
+    display:inline-flex; align-items:center; gap:8px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-weight: 900;
+    font-size: 0.82rem;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.03);
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .dot{ width: 10px; height: 10px; border-radius: 50%; }
+  .st-pending .dot{ background: var(--gold); box-shadow: 0 0 10px rgba(255,211,106,0.25); }
+  .st-approved .dot{ background: var(--green); box-shadow: 0 0 10px rgba(69,243,163,0.25); }
+  .st-hidden .dot{ background: var(--red); box-shadow: 0 0 10px rgba(255,85,85,0.25); }
+
+  .content{
+    margin-top: 14px;
+    background: rgba(15,22,38,0.55);
+    border: 1px solid rgba(38,50,73,0.85);
+    border-radius: 18px;
+    padding: 14px;
+    line-height: 1.65;
+    word-break: break-word;
+  }
+
+  .btn-sm{ padding: 8px 12px; border-radius: 12px; font-weight: 900; }
+  .btn-danger{
+    background: rgba(239,68,68,0.14);
+    border: 1px solid rgba(239,68,68,0.45);
+    color: #ffd1d1;
+  }
+  .btn-ghost{
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+
+  .editor{
+    display:none;
+    margin-top: 14px;
+  }
+  .field{
+    background: rgba(15,22,38,0.55);
+    border: 1px solid rgba(38,50,73,0.85);
+    border-radius: 16px;
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+  .field label{
+    display:block;
+    font-weight: 900;
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+  }
+  .control{
+    width: 100%;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    background: #0f1626;
+    color: var(--text);
+    padding: 12px 12px;
+    outline: none;
+    transition: 0.15s;
+    margin: 0;
+  }
+  .control:focus{
+    border-color: rgba(126,242,255,0.55);
+    box-shadow: 0 0 0 4px rgba(126,242,255,0.10);
+  }
+  textarea.control{ min-height: 140px; resize: vertical; }
+
+  /* comments */
+  .cmt-wrap{ margin-top: 16px; }
+  .cmt-head{
+    display:flex; justify-content:space-between; align-items:center;
+    gap: 12px; flex-wrap: wrap; margin-bottom: 10px;
+  }
+  .cmt-list{ display:flex; flex-direction:column; gap: 10px; }
+  .cmt{
+    background: rgba(15,22,38,0.55);
+    border: 1px solid rgba(38,50,73,0.85);
+    border-radius: 16px;
+    padding: 12px;
+  }
+  .cmt .top{
+    display:flex; justify-content:space-between; align-items:center; gap: 10px;
+    margin-bottom: 8px;
+  }
+  .cmt .who{ font-weight: 950; }
+  .cmt .time{ color: var(--muted); font-size: 0.85rem; font-weight: 800; }
+  .cmt .body{ line-height: 1.55; word-break: break-word; }
+  .cmt .actions{ margin-top: 10px; display:flex; gap: 10px; flex-wrap:wrap; }
+  .indent{ margin-left: 24px; border-left: 2px solid rgba(38,50,73,0.7); padding-left: 12px; }
+
+  .reply-box{ display:none; margin-top: 10px; }
+</style>
+{% endblock %}
+
+{% block content %}
+<a href="/feedback" style="color: #9aa4b2; text-decoration: none; font-weight: bold;">← Quay lại</a>
+
+<div class="panel" style="margin-top: 14px;">
+  <div class="post-head">
+    <div>
+      <div class="title" id="postTitle">{{ post.title }}</div>
+      <p class="meta" id="postMeta">Đang tải...</p>
+    </div>
+
+    <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+      <span id="postStatus" class="badge"><span class="dot"></span>...</span>
+
+      <button id="btnEdit" class="btn btn-secondary btn-sm" style="display:none;">
+        <i class="fa-solid fa-pen"></i> Sửa
+      </button>
+      <button id="btnDelete" class="btn btn-secondary btn-sm btn-danger" style="display:none;">
+        <i class="fa-solid fa-trash"></i> Xóa
+      </button>
+
+      <button id="btnApprove" class="btn btn-primary btn-sm" style="display:none;">
+        <i class="fa-solid fa-check"></i> Duyệt
+      </button>
+      <button id="btnHide" class="btn btn-secondary btn-sm" style="display:none;">
+        <i class="fa-solid fa-eye-slash"></i> Ẩn
+      </button>
+      <button id="btnPending" class="btn btn-secondary btn-sm btn-ghost" style="display:none;">
+        <i class="fa-solid fa-clock"></i> Pending
+      </button>
+    </div>
+  </div>
+
+  <div id="postContent" class="content"></div>
+
+  <!-- editor (owner/staff) -->
+  <div id="editor" class="editor">
+    <div class="field">
+      <label>Phân loại</label>
+      <select id="editCat" class="control">
+        <option value="suggestion">💡 Góp ý</option>
+        <option value="bug">🐛 Báo lỗi</option>
+        <option value="other">💬 Khác</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Tiêu đề</label>
+      <input id="editTitle" class="control" />
+    </div>
+
+    <div class="field">
+      <label>Nội dung</label>
+      <textarea id="editContent" class="control"></textarea>
+    </div>
+
+    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+      <button id="btnSave" class="btn btn-primary btn-sm"><i class="fa-solid fa-floppy-disk"></i> Lưu</button>
+      <button id="btnCancelEdit" class="btn btn-secondary btn-sm btn-ghost">Hủy</button>
+      <span class="muted" style="align-self:center;">Chủ bài sửa sẽ về trạng thái chờ duyệt.</span>
+    </div>
+  </div>
+</div>
+
+<div class="panel cmt-wrap">
+  <div class="cmt-head">
+    <h3 style="margin:0;"><i class="fa-solid fa-comments"></i> Bình luận</h3>
+    <div class="muted">Tự cập nhật mỗi 5 giây</div>
+  </div>
+
+  {% if session.get('user_id') %}
+  <div class="field">
+    <label>Viết bình luận</label>
+    <textarea id="newComment" class="control" placeholder="Nhập bình luận..."></textarea>
+    <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">
+      <button id="btnSend" class="btn btn-primary btn-sm"><i class="fa-solid fa-paper-plane"></i> Gửi</button>
+    </div>
+  </div>
+  {% else %}
+    <p class="muted">Bạn cần <a href="/login">đăng nhập</a> để bình luận.</p>
+  {% endif %}
+
+  <div id="commentList" class="cmt-list"></div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  const POST_ID = {{ post.id }};
+  let postCache = null;
+  let commentsCacheCount = 0;
+
+  const elStatus = document.getElementById('postStatus');
+  const elMeta = document.getElementById('postMeta');
+  const elContent = document.getElementById('postContent');
+
+  const btnEdit = document.getElementById('btnEdit');
+  const btnDelete = document.getElementById('btnDelete');
+  const btnApprove = document.getElementById('btnApprove');
+  const btnHide = document.getElementById('btnHide');
+  const btnPending = document.getElementById('btnPending');
+
+  const editor = document.getElementById('editor');
+  const editCat = document.getElementById('editCat');
+  const editTitle = document.getElementById('editTitle');
+  const editContent = document.getElementById('editContent');
+
+  function escapeHtml(s){
+    return (s ?? '').toString()
+      .replaceAll('&','&amp;').replaceAll('<','&lt;')
+      .replaceAll('>','&gt;').replaceAll('"','&quot;')
+      .replaceAll("'","&#039;");
+  }
+
+  function setStatusBadge(status){
+    elStatus.classList.remove('st-pending','st-approved','st-hidden');
+    const cls = status === 'approved' ? 'st-approved' : (status === 'hidden' ? 'st-hidden' : 'st-pending');
+    elStatus.classList.add(cls);
+    const text = status === 'approved' ? 'Đã duyệt' : (status === 'hidden' ? 'Đã ẩn' : 'Chờ duyệt');
+    elStatus.innerHTML = `<span class="dot"></span>${text}`;
+  }
+
+  function buildTree(comments){
+    const byId = new Map();
+    const roots = [];
+    comments.forEach(c => byId.set(c.id, {...c, children: []}));
+    byId.forEach(c => {
+      if (c.parent_id) {
+        const p = byId.get(c.parent_id);
+        if (p) p.children.push(c);
+        else roots.push(c);
+      } else roots.push(c);
+    });
+    return roots;
+  }
+
+  function renderCommentNode(c, depth=0){
+    const indentCls = depth > 0 ? 'indent' : '';
+    const adminTag = c.is_admin ? ` <span class="badge" style="margin-left:8px; font-size:0.72rem;"><span class="dot" style="background:var(--cyan)"></span>ADMIN</span>` : '';
+
+    return `
+      <div class="cmt ${indentCls}" data-cid="${c.id}">
+        <div class="top">
+          <div class="who">${escapeHtml(c.author)}${adminTag}</div>
+          <div class="time">${escapeHtml(c.time)}</div>
+        </div>
+        <div class="body">${c.content}</div>
+        <div class="actions">
+          ${document.getElementById('newComment') ? `<button class="btn btn-secondary btn-sm btn-ghost" data-reply="${c.id}"><i class="fa-solid fa-reply"></i> Trả lời</button>` : ''}
+        </div>
+
+        <div class="reply-box" id="replyBox-${c.id}">
+          <div class="field" style="margin-top:10px;">
+            <label>Trả lời</label>
+            <textarea class="control" id="replyText-${c.id}" placeholder="Nhập trả lời..."></textarea>
+            <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">
+              <button class="btn btn-primary btn-sm" data-send-reply="${c.id}"><i class="fa-solid fa-paper-plane"></i> Gửi</button>
+              <button class="btn btn-secondary btn-sm btn-ghost" data-cancel-reply="${c.id}">Hủy</button>
+            </div>
+          </div>
+        </div>
+
+        ${c.children.map(ch => renderCommentNode(ch, depth+1)).join('')}
+      </div>
+    `;
+  }
+
+  function renderComments(comments){
+    const tree = buildTree(comments);
+    const html = tree.map(n => renderCommentNode(n, 0)).join('');
+    document.getElementById('commentList').innerHTML = html;
+  }
+
+  async function loadAll(){
+    const res = await fetch(`/api/feedback/${POST_ID}`, { cache: 'no-store' });
+    if (!res.ok) return;
+    const data = await res.json();
+
+    postCache = data.post;
+
+    document.getElementById('postTitle').innerText = data.post.title;
+    elMeta.innerHTML = `<i class="fa-solid fa-user"></i> <b>${escapeHtml(data.post.author)}</b> • <i class="fa-regular fa-clock"></i> ${escapeHtml(data.post.created_at)}`;
+    elContent.innerHTML = data.post.content; // content là raw text từ DB (chưa escape); bạn có thể escape nếu muốn
+    setStatusBadge(data.post.status);
+
+    // buttons
+    btnEdit.style.display = data.post.is_owner ? 'inline-flex' : 'none';
+    btnDelete.style.display = (data.post.is_owner || data.post.can_moderate) ? 'inline-flex' : 'none';
+
+    btnApprove.style.display = data.post.can_moderate ? 'inline-flex' : 'none';
+    btnHide.style.display = data.post.can_moderate ? 'inline-flex' : 'none';
+    btnPending.style.display = data.post.can_moderate ? 'inline-flex' : 'none';
+
+    // only rerender comments if count changed (simple)
+    if ((data.comments || []).length !== commentsCacheCount) {
+      commentsCacheCount = (data.comments || []).length;
+      renderComments(data.comments || []);
+    }
+  }
+
+  // comment actions
+  document.getElementById('commentList').addEventListener('click', async (e) => {
+    const replyBtn = e.target.closest('[data-reply]');
+    const sendReplyBtn = e.target.closest('[data-send-reply]');
+    const cancelReplyBtn = e.target.closest('[data-cancel-reply]');
+
+    if (replyBtn){
+      const cid = replyBtn.getAttribute('data-reply');
+      const box = document.getElementById(`replyBox-${cid}`);
+      if (box) box.style.display = (box.style.display === 'block' ? 'none' : 'block');
+      return;
+    }
+
+    if (cancelReplyBtn){
+      const cid = cancelReplyBtn.getAttribute('data-cancel-reply');
+      const box = document.getElementById(`replyBox-${cid}`);
+      if (box) box.style.display = 'none';
+      return;
+    }
+
+    if (sendReplyBtn){
+      const cid = sendReplyBtn.getAttribute('data-send-reply');
+      const text = document.getElementById(`replyText-${cid}`)?.value?.trim();
+      if (!text) return showNotification?.('Nội dung trống', 'warning');
+
+      const res = await fetch(`/api/feedback/${POST_ID}/comment`, {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ content: text, parent_id: parseInt(cid) })
+      });
+
+      const data = await res.json().catch(() => ({}));
+      if (res.ok){
+        showNotification?.('Đã gửi trả lời', 'success');
+        document.getElementById(`replyText-${cid}`).value = '';
+        document.getElementById(`replyBox-${cid}`).style.display = 'none';
+        await loadAll();
+      } else {
+        showNotification?.(data.error || 'Gửi thất bại', 'error');
+      }
+      return;
+    }
+  });
+
+  document.getElementById('btnSend')?.addEventListener('click', async () => {
+    const text = document.getElementById('newComment').value.trim();
+    if (!text) return showNotification?.('Nội dung trống', 'warning');
+
+    const res = await fetch(`/api/feedback/${POST_ID}/comment`, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ content: text })
+    });
+
+    const data = await res.json().catch(() => ({}));
+    if (res.ok){
+      showNotification?.('Đã bình luận', 'success');
+      document.getElementById('newComment').value = '';
+      await loadAll();
+    } else {
+      showNotification?.(data.error || 'Gửi thất bại', 'error');
+    }
+  });
+
+  // edit/delete
+  btnEdit?.addEventListener('click', () => {
+    editor.style.display = (editor.style.display === 'block' ? 'none' : 'block');
+    if (!postCache) return;
+    editCat.value = postCache.category;
+    editTitle.value = postCache.title;
+    editContent.value = postCache.content;
+  });
+
+  document.getElementById('btnCancelEdit')?.addEventListener('click', () => {
+    editor.style.display = 'none';
+  });
+
+  document.getElementById('btnSave')?.addEventListener('click', async () => {
+    const payload = {
+      category: editCat.value,
+      title: editTitle.value.trim(),
+      content: editContent.value.trim()
+    };
+    if (!payload.title || !payload.content) return showNotification?.('Thiếu tiêu đề/nội dung', 'warning');
+
+    const res = await fetch(`/api/feedback/${POST_ID}/edit`, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(payload)
+    });
+
+    const data = await res.json().catch(() => ({}));
+    if (res.ok){
+      showNotification?.('Đã lưu. (Có thể cần duyệt lại)', 'success');
+      editor.style.display = 'none';
+      await loadAll();
+    } else {
+      showNotification?.(data.error || 'Lưu thất bại', 'error');
+    }
+  });
+
+  btnDelete?.addEventListener('click', async () => {
+    if (!confirm('Xóa bài góp ý này?')) return;
+    const res = await fetch(`/api/feedback/${POST_ID}/delete`, { method:'POST' });
+    const data = await res.json().catch(() => ({}));
+    if (res.ok){
+      showNotification?.('Đã xóa', 'success', '/feedback');
+    } else {
+      showNotification?.(data.error || 'Xóa thất bại', 'error');
+    }
+  });
+
+  // moderation
+  async function setStatus(status){
+    const res = await fetch(`/api/admin/feedback/${POST_ID}/status`, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ status })
+    });
+    const data = await res.json().catch(() => ({}));
+    if (res.ok){
+      showNotification?.('Đã cập nhật trạng thái', 'success');
+      await loadAll();
+    } else {
+      showNotification?.(data.error || 'Thao tác thất bại', 'error');
+    }
+  }
+
+  btnApprove?.addEventListener('click', () => setStatus('approved'));
+  btnHide?.addEventListener('click', () => setStatus('hidden'));
+  btnPending?.addEventListener('click', () => setStatus('pending'));
+
+  setInterval(loadAll, 5000);
+  loadAll();
+</script>
+{% endblock %}

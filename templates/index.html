@@ -1,0 +1,252 @@
+{% extends "base.html" %}
+{% block title %}Trang Chủ - GenZ Era{% endblock %}
+
+{% block extra_css %}
+<style>
+  .hero {
+    background: url('https://preview.redd.it/fantasy-islands-mmo-rpg-map-v0-jeeg260ne6tc1.jpeg?auto=webp&s=69b102f5ef19338175b8632213a59eee5f8dcd68') center/cover;
+    border-radius: 18px;
+    overflow: hidden;
+    position: relative;
+    padding: 60px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    border: 1px solid var(--border);
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(8,12,20,0.9), rgba(8,12,20,0.6));
+  }
+  .hero-content { position: relative; z-index: 2; }
+  .hero h1 { font-size: 2.4rem; font-weight: 800; margin: 0 0 10px; }
+  .hero p { color: var(--muted); max-width: 640px; margin: 0 0 20px; }
+
+  .item-strip { display:flex; gap:12px; margin-top: 20px; flex-wrap:wrap; }
+  .item {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-weight: 800;
+    color: var(--cyan);
+  }
+
+  .main-layout{
+    display:grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 20px;
+    margin-top: 40px;
+    align-items: start;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .mc-banner{
+    margin-top: 40px;
+    background: url('https://guildtag.com/images/landing/minecraft-banner-1.jpg') center/cover;
+    border-radius: 18px;
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .mc-banner::before{
+    content:'';
+    position:absolute; inset:0;
+    background: rgba(10,14,22,0.85);
+  }
+  .mc-banner .content{ position:relative; z-index:2; }
+
+  /* Discord button */
+  .btn-discord{
+    background-color: #5865F2;
+    color: #fff !important;
+    font-weight: 900;
+    padding: 12px 18px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.1);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 4px 15px rgba(88,101,242,0.4);
+  }
+  .btn-discord:hover{
+    transform: translateY(-2px);
+    background-color: #4752C4;
+    box-shadow: 0 6px 20px rgba(88,101,242,0.6);
+  }
+
+  @media (max-width: 1024px){
+    .main-layout{ grid-template-columns: 1fr; }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="hero enchanted">
+  <div class="hero-content">
+    <h1>GenZ Era — Hành Trình Sinh Tồn Minecraft</h1>
+    <p>Server Minecraft chuyên nghiệp, hệ thống Ticket hỗ trợ nhanh, cộng đồng đông vui và event mỗi tuần.</p>
+
+    <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+      {% if session.get('user_id') %}
+        <a href="#event" class="btn btn-primary">Khám Phá Ngay</a>
+      {% else %}
+        <a href="/register" class="btn btn-primary">Tham Gia Ngay</a>
+      {% endif %}
+
+      <a href="https://discord.com/invite/ZqWSXvfF?utm_source=Discord%20Widget&utm_medium=Connect" target="_blank" class="btn btn-discord">
+        <i class="fa-brands fa-discord" style="font-size: 1.2rem;"></i> Tham Gia Discord
+      </a>
+    </div>
+
+    <div class="item-strip">
+      <div class="item enchanted">⚔ Class đa dạng</div>
+      <div class="item">Nông sản 4 mùa</div>
+      <div class="item enchanted">Hầm Ngục</div>
+      <div class="item">SMP - RPG</div>
+    </div>
+  </div>
+</div>
+
+<div class="main-layout">
+  <div class="grid">
+
+    <!-- EVENT -->
+    <div class="card" id="event">
+      <div class="card-header">
+        <h3 class="card-title" style="color: var(--gold);">🔥 Sự Kiện</h3>
+        <span class="badge-count">{{ (articles.get('event')|length) if articles.get('event') else 0 }} bài</span>
+      </div>
+
+      {% if articles.get('event') and articles['event']|length > 0 %}
+        {% for article in articles['event'][:4] %}
+          <div class="article-item">
+            <div class="article-row">
+              <a href="/article/{{ article.id }}" class="article-link">{{ article.title }}</a>
+              <div class="article-meta">{{ article.created_at.strftime('%d/%m/%Y') }}</div>
+            </div>
+          </div>
+        {% endfor %}
+        <div class="card-footer">
+          <a class="btn-ghost" href="/category/event">Xem tất cả →</a>
+        </div>
+      {% else %}
+        <div class="empty-state">Chưa có sự kiện nào.</div>
+      {% endif %}
+    </div>
+
+    <!-- NEWS -->
+    <div class="card" id="news">
+      <div class="card-header">
+        <h3 class="card-title" style="color: var(--cyan);">📣 Thông Báo</h3>
+        <span class="badge-count">{{ (articles.get('news')|length) if articles.get('news') else 0 }} bài</span>
+      </div>
+
+      {% if articles.get('news') and articles['news']|length > 0 %}
+        {% for article in articles['news'][:4] %}
+          <div class="article-item">
+            <div class="article-row">
+              <a href="/article/{{ article.id }}" class="article-link">{{ article.title }}</a>
+              <div class="article-meta">{{ article.created_at.strftime('%d/%m/%Y') }}</div>
+            </div>
+          </div>
+        {% endfor %}
+        <div class="card-footer">
+          <a class="btn-ghost" href="/category/news">Xem tất cả →</a>
+        </div>
+      {% else %}
+        <div class="empty-state">Chưa có thông báo nào.</div>
+      {% endif %}
+    </div>
+
+    <!-- RECHARGE -->
+    <div class="card" id="recharge">
+      <div class="card-header">
+        <h3 class="card-title" style="color: var(--green);">💎 Nạp Thẻ</h3>
+        <span class="badge-count">{{ (articles.get('recharge')|length) if articles.get('recharge') else 0 }} bài</span>
+      </div>
+
+      <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom: 10px;">
+        <a class="btn-ghost" href="/recharge">Nạp ngay</a>
+        <a class="btn-ghost" href="/tickets">Báo lỗi nạp</a>
+      </div>
+
+      {% if articles.get('recharge') and articles['recharge']|length > 0 %}
+        {% for article in articles['recharge'][:4] %}
+          <div class="article-item">
+            <div class="article-row">
+              <a href="/article/{{ article.id }}" class="article-link">{{ article.title }}</a>
+              <div class="article-meta">{{ article.created_at.strftime('%d/%m/%Y') }}</div>
+            </div>
+          </div>
+        {% endfor %}
+        <div class="card-footer">
+          <a class="btn-ghost" href="/category/recharge">Xem tất cả →</a>
+        </div>
+      {% else %}
+        <div class="empty-state">Chưa có bài viết hướng dẫn.</div>
+      {% endif %}
+    </div>
+
+    <!-- MAINTENANCE -->
+    <div class="card" id="maintenance">
+      <div class="card-header">
+        <h3 class="card-title" style="color: var(--red);">🛠 Bảo Trì</h3>
+        <span class="badge-count">{{ (articles.get('maintenance')|length) if articles.get('maintenance') else 0 }} bài</span>
+      </div>
+
+      {% if articles.get('maintenance') and articles['maintenance']|length > 0 %}
+        {% for article in articles['maintenance'][:4] %}
+          <div class="article-item">
+            <div class="article-row">
+              <a href="/article/{{ article.id }}" class="article-link">{{ article.title }}</a>
+              <div class="article-meta">{{ article.created_at.strftime('%d/%m/%Y') }}</div>
+            </div>
+          </div>
+        {% endfor %}
+        <div class="card-footer">
+          <a class="btn-ghost" href="/category/maintenance">Xem tất cả →</a>
+        </div>
+      {% else %}
+        <div class="empty-state" style="border-style: solid; border-color: rgba(71,230,166,0.18);">
+          Hệ thống đang hoạt động ổn định.
+        </div>
+      {% endif %}
+    </div>
+
+  </div>
+
+  <!-- Discord sidebar -->
+  <div class="card" style="display:flex; flex-direction:column; padding:16px; height:fit-content;">
+    <h3 class="card-title" style="color:#5865F2; margin-bottom:12px;">
+      <i class="fa-brands fa-discord"></i> DISCORD ONLINE
+    </h3>
+
+    <iframe
+      src="https://discord.com/widget?id=1429078314986766389&theme=dark"
+      width="100%"
+      height="415"
+      allowtransparency="true"
+      frameborder="0"
+      sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
+      style="border-radius: 10px; border: 1px solid rgba(88, 101, 242, 0.2);">
+    </iframe>
+  </div>
+</div>
+
+<div class="mc-banner enchanted">
+  <div class="content">
+    <h2 style="margin:0 0 12px; color:white;">🎧 Trung Tâm Hỗ Trợ Staff</h2>
+    <p style="color:var(--muted);margin:0 0 20px;">Mất đồ, lỗi nạp, báo cheat… hãy tạo Ticket để Staff xử lý nhanh nhất.</p>
+    <a href="/tickets" class="btn btn-primary" style="box-shadow: 0 0 15px rgba(91,140,255,0.4);">Mở Ticket Ngay</a>
+  </div>
+</div>
+{% endblock %}

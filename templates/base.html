@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}GenZ Era Wiki{% endblock %}</title>
+
+    <!-- Fonts + Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg: #0b0f17;
+            --panel: #141c2e;
+            --panel-soft: #172238;
+            --text: #f2f6fb;
+            --muted: #b7c0cc;
+            --primary: #5b8cff;
+            --cyan: #7ef2ff;
+            --green: #45f3a3;
+            --gold: #ffd36a;
+            --purple: #b86bff;
+            --border: #263249;
+            --red: #ff5555;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        header {
+            position: sticky;
+            top: 0; z-index: 1000;
+            background: linear-gradient(90deg, #0d1322, #111b30);
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 14px;
+            color: white;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            opacity: 0.85;
+        }
+        nav a:hover { opacity: 1; color: var(--cyan); }
+
+        .auth-links { display: flex; gap: 12px; align-items: center; }
+
+        .btn {
+            padding: 10px 18px;
+            border-radius: 10px;
+            border: 1px solid transparent;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), #7aa5ff);
+            color: white;
+        }
+        .btn-secondary {
+            background: var(--panel-soft);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        .btn:hover { transform: translateY(-2px); }
+
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            color: white;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+		/* ===== SHARED CARDS (DARK) ===== */
+		.card, .panel-card {
+			background: var(--panel);
+			border: 1px solid var(--border);
+			border-radius: 16px;
+			padding: 22px;
+			box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+		}
+
+		.card.soft, .panel-card.soft { background: var(--panel-soft); }
+
+		hr.sep {
+			border: none;
+			border-top: 1px solid var(--border);
+			margin: 22px 0;
+		}
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            min-height: 60vh;
+        }
+
+        footer {
+            margin-top: 60px;
+            padding: 40px 0;
+            text-align: center;
+            color: var(--muted);
+            border-top: 1px solid var(--border);
+            background: #0a0f1c;
+        }
+
+        /* Enchant Glow (FIX: không che nội dung, không chặn click) */
+        .enchanted {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(184,107,255,0.4);
+            box-shadow: 0 0 15px rgba(184,107,255,0.3);
+        }
+        .enchanted::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, transparent, rgba(184,107,255,0.28), transparent);
+            animation: glow 2.5s linear infinite;
+            pointer-events: none;
+            opacity: 0.9;
+        }
+        .enchanted > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes glow {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Mobile */
+        @media (max-width: 900px) {
+            .menu-toggle { display: block; }
+            nav {
+                position: absolute; top: 100%; left: 0; width: 100%;
+                flex-direction: column;
+                background: #0e1424;
+                max-height: 0; overflow: hidden;
+                transition: 0.3s;
+                border-bottom: 1px solid var(--border);
+            }
+            nav.active { max-height: 500px; padding: 20px; }
+            nav a { width: 100%; text-align: center; padding: 12px 0; }
+            .auth-links { flex-direction: column; width: 100%; }
+        }
+
+        /* ===== FIX CHỮ CHO NỀN TỐI ===== */
+        body, .container, h1, h2, h3, h4, h5, p, span, li, td, th, label, small {
+            color: var(--text) !important;
+        }
+
+        a { color: #9ecbff; }
+        a:hover { color: var(--cyan); }
+
+        input, textarea, select, option {
+            background: #0f1626 !important;
+            color: var(--text) !important;
+            border: 1px solid var(--border) !important;
+        }
+
+        table {
+            color: var(--text) !important;
+            background: #121a2b !important;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        th, td { border-color: #1f2a44 !important; }
+
+        /* ===== THANH TRẠNG THÁI SERVER ===== */
+        .server-status-bar {
+            background: #0b101a;
+            border-bottom: 1px solid var(--border);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+            z-index: 998;
+        }
+
+        .server-status-bar.enchanted {
+            border-bottom: 1px solid rgba(184,107,255,0.5);
+            box-shadow: 0 4px 20px rgba(184,107,255,0.15);
+        }
+
+        .status-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
+            color: var(--text);
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background: var(--green);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--green);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.9); opacity: 1; }
+            50% { transform: scale(1.3); opacity: 0.6; }
+            100% { transform: scale(0.9); opacity: 1; }
+        }
+
+        .copy-ip-btn {
+            background: rgba(184,107,255,0.15);
+            color: var(--purple);
+            border: 1px solid var(--purple);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 9px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .copy-ip-btn:hover {
+            background: var(--purple);
+            color: white;
+            box-shadow: 0 0 15px var(--purple);
+            transform: translateY(-2px);
+        }
+
+        /* ============================================================
+           HOME PAGE CARDS (index.html) - bổ sung style chuyên nghiệp
+           ============================================================ */
+
+        /* Card hover tinh tế hơn */
+        .card{
+          transition: 0.2s ease;
+        }
+        .card:hover{
+          transform: translateY(-2px);
+          box-shadow: 0 16px 42px rgba(0,0,0,0.45);
+          border-color: rgba(91,140,255,0.30);
+        }
+
+        /* Header của card: title + badge */
+        .card-header{
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 10px;
+          margin-bottom: 12px;
+        }
+
+        .card-title{
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          font-size: 1.05rem;
+          font-weight: 900;
+          margin: 0;
+        }
+
+        /* Badge số lượng bài */
+        .badge-count{
+          font-size: 0.78rem;
+          padding: 6px 10px;
+          border-radius: 999px;
+          border: 1px solid rgba(255,255,255,0.12);
+          background: rgba(255,255,255,0.06);
+          color: var(--muted);
+          white-space: nowrap;
+        }
+
+        /* Danh sách bài viết trong card */
+        .article-item{
+          padding: 12px 0;
+          border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .article-item:last-child{
+          border-bottom: none;
+        }
+
+        /* Bố cục: tiêu đề trái, ngày phải */
+        .article-row{
+          display: grid;
+          grid-template-columns: 1fr auto;
+          gap: 10px;
+          align-items: start;
+        }
+
+        /* Link bài viết: đậm, cắt 2 dòng, hover đổi màu */
+        .article-link{
+          color: var(--text);
+          text-decoration: none;
+          font-weight: 700;
+          line-height: 1.35;
+
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+        .article-link:hover{
+          color: var(--cyan);
+        }
+
+        /* Ngày tháng */
+        .article-meta{
+          color: var(--muted);
+          font-size: 0.82rem;
+          white-space: nowrap;
+          margin-top: 2px;
+        }
+
+        /* Footer card (nút "Xem tất cả") */
+        .card-footer{
+          margin-top: 12px;
+          display: flex;
+          justify-content: flex-end;
+        }
+
+        /* Button ghost */
+        .btn-ghost{
+          padding: 8px 12px;
+          border-radius: 10px;
+          border: 1px solid rgba(255,255,255,0.10);
+          background: rgba(255,255,255,0.04);
+          color: var(--text);
+          text-decoration: none;
+          font-weight: 800;
+          transition: 0.2s ease;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+        }
+        .btn-ghost:hover{
+          border-color: rgba(91,140,255,0.25);
+          background: rgba(91,140,255,0.08);
+          transform: translateY(-1px);
+        }
+
+        /* Empty state */
+        .empty-state{
+          margin: 8px 0 2px;
+          padding: 12px;
+          border-radius: 12px;
+          border: 1px dashed rgba(255,255,255,0.14);
+          color: var(--muted);
+          background: rgba(255,255,255,0.03);
+        }
+    </style>
+
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a href="/" class="logo">GENZ ERA</a>
+            <button class="menu-toggle" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
+            <nav id="mobile-menu">
+                <a href="/#event">Sự Kiện</a>
+                <a href="/#news">Thông Báo</a>
+                <a href="/#recharge">Nạp Thẻ</a>
+				<a href="/feedback">Góp Ý</a>
+                <a href="/tickets">Hỗ Trợ</a>
+                <a href="/download-pack" style="color: var(--purple); font-weight: bold; text-shadow: 0 0 10px rgba(184,107,255,0.5);"><i class="fa-solid fa-download"></i> Tải Pack</a>
+
+                <div class="auth-links">
+                    {% if session.get('user_id') %}
+                        {% set user = get_user(session['user_id']) %}
+                        <a href="/profile" style="color: var(--gold); font-weight: 700;">👤 {{ user.username }}</a>
+                        {% if user.is_admin %}<a href="/admin" class="btn btn-primary">Admin</a>{% endif %}
+                        <a href="/logout" class="btn btn-secondary">Đăng Xuất</a>
+                    {% else %}
+                        <a href="/login" class="btn btn-secondary">Đăng Nhập</a>
+                        <a href="/register" class="btn btn-primary">Đăng Ký</a>
+                    {% endif %}
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- THANH TRẠNG THÁI SERVER -->
+    <div class="server-status-bar enchanted">
+        <div class="status-content">
+            {% if mc_players != 'Bảo trì' %}
+                <span class="status-dot"></span>
+            {% else %}
+                <span class="status-dot" style="background: var(--red); box-shadow: 0 0 10px var(--red);"></span>
+            {% endif %}
+
+            <span style="color: var(--cyan);">PLAY.GENZERA.ONLINE</span>
+
+            <span style="color: var(--gold);">
+                <i class="fa-solid fa-users"></i> <span id="mc-player-count">Đang tải...</span>
+            </span>
+        </div>
+        <button class="copy-ip-btn" onclick="copyServerIP()">CLICK COPY IP</button>
+    </div>
+
+    <!-- Script Copy IP nhanh -->
+    <script>
+    function copyServerIP() {
+        navigator.clipboard.writeText("play.genzera.online");
+        showNotification("Đã copy IP Server: play.genzera.online", "success");
+    }
+    </script>
+
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer>
+        <p>&copy; GenzEra</p>
+    </footer>
+
+    <div id="toast-box" style="position: fixed; top: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 12px;"></div>
+    <script>
+  function toggleMenu() {
+    document.getElementById('mobile-menu').classList.toggle('active');
+  }
+
+  function showNotification(msg, type = 'success', action = null) {
+    const box = document.getElementById('toast-box');
+    if (!box) { alert(msg); return; }
+
+    const toast = document.createElement('div');
+    let color = type === 'success' ? '#45f3a3' : (type === 'error' ? '#ff6b6b' : '#ffcc66');
+    toast.style.cssText = `
+      background:#101827;color:white;min-width:280px;max-width:420px;padding:14px 18px;
+      border-left:4px solid ${color};border-radius:10px;
+      box-shadow:0 10px 30px rgba(0,0,0,.4);
+      transform:translateX(120%);transition:0.25s;
+      word-wrap:break-word;
+    `;
+    toast.innerHTML = msg;
+    box.appendChild(toast);
+
+    setTimeout(()=>toast.style.transform='translateX(0)',10);
+    setTimeout(()=>{
+      toast.style.transform='translateX(120%)';
+      setTimeout(()=>toast.remove(),250);
+      if (action === 'reload') location.reload();
+      else if (typeof action === 'string' && action) window.location.href = action;
+    }, 2000);
+  }
+
+  // override alert để toast đẹp hơn
+  window.alert = function(message) { showNotification(message, 'warning'); };
+
+  // copy server ip (fallback)
+  async function copyServerIP() {
+    try {
+      await navigator.clipboard.writeText("play.genzera.online");
+      showNotification("Đã copy IP Server: play.genzera.online", "success");
+    } catch (e) {
+      window.prompt("Copy IP Server:", "play.genzera.online");
+    }
+  }
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        fetch('/api/mc-status')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('mc-player-count').innerText = data.players;
+            })
+            .catch(error => {
+                console.error('Lỗi lấy thông tin server MC:', error);
+                document.getElementById('mc-player-count').innerText = "Lỗi kết nối";
+            });
+    });
+</script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

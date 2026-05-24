@@ -1,0 +1,310 @@
+{% extends "base.html" %}
+{% block title %}Góp Ý Cộng Đồng{% endblock %}
+
+{% block extra_css %}
+<style>
+  .fb-head{
+    display:flex; justify-content:space-between; align-items:center;
+    gap: 12px; flex-wrap: wrap; margin-bottom: 16px;
+  }
+  .panel{
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 18px;
+    box-shadow: 0 16px 45px rgba(0,0,0,0.45);
+  }
+  .badge{
+    display:inline-flex; align-items:center; gap:8px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-weight: 900;
+    font-size: 0.82rem;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.03);
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .dot{ width: 10px; height: 10px; border-radius: 50%; }
+  .st-pending .dot{ background: var(--gold); box-shadow: 0 0 10px rgba(255,211,106,0.25); }
+  .st-approved .dot{ background: var(--green); box-shadow: 0 0 10px rgba(69,243,163,0.25); }
+  .st-hidden .dot{ background: var(--red); box-shadow: 0 0 10px rgba(255,85,85,0.25); }
+
+  .new-post{ display:none; }
+  .grid2{ display:grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 900px){ .grid2{ grid-template-columns: 1fr; } }
+
+  .field{
+    background: rgba(15,22,38,0.55);
+    border: 1px solid rgba(38,50,73,0.85);
+    border-radius: 16px;
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+  .field label{
+    display:block;
+    font-weight: 900;
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+  }
+  .control{
+    width: 100%;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    background: #0f1626;
+    color: var(--text);
+    padding: 12px 12px;
+    outline: none;
+    transition: 0.15s;
+    margin: 0;
+  }
+  .control:focus{
+    border-color: rgba(126,242,255,0.55);
+    box-shadow: 0 0 0 4px rgba(126,242,255,0.10);
+  }
+  textarea.control{ min-height: 150px; resize: vertical; }
+
+  .post-list{ margin-top: 14px; display:flex; flex-direction:column; gap: 12px; }
+  .post-card{
+    background: rgba(15,22,38,0.55);
+    border: 1px solid rgba(38,50,73,0.85);
+    border-radius: 18px;
+    padding: 14px;
+    display:flex; justify-content: space-between; align-items:flex-start; gap: 12px;
+  }
+  .post-card:hover{
+    border-color: rgba(126,242,255,0.25);
+  }
+  .post-title{
+    font-weight: 950;
+    font-size: 1.05rem;
+    margin: 0 0 6px 0;
+  }
+  .post-meta{
+    margin:0;
+    color: var(--muted);
+    font-size: 0.92rem;
+    line-height: 1.4;
+  }
+  .post-actions{
+    display:flex; gap: 10px; flex-wrap:wrap; align-items:center; justify-content:flex-end;
+  }
+  .btn-sm{ padding: 8px 12px; border-radius: 12px; font-weight: 900; }
+  .muted{ color: var(--muted); }
+  
+  /* Thêm style nhẹ cho phân trang */
+  .pagination-controls button {
+    cursor: pointer;
+  }
+  .pagination-controls button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="fb-head">
+  <h1 style="margin:0;">💡 Góp Ý Cộng Đồng</h1>
+  <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+    {% if session.get('user_id') %}
+      <button id="btnOpen" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Đăng góp ý</button>
+    {% else %}
+      <a href="{{ url_for('auth.login') }}" class="btn btn-primary">Đăng nhập để đăng góp ý</a>
+    {% endif %}
+  </div>
+</div>
+
+<div id="newPost" class="panel new-post" style="margin-bottom: 14px;">
+  <h3 style="margin:0 0 10px 0;"><i class="fa-solid fa-pen-to-square"></i> Đăng góp ý mới</h3>
+  <p class="muted" style="margin:0 0 14px 0;">Bài sẽ ở trạng thái <b>chờ duyệt</b> trước khi hiển thị công khai.</p>
+
+  <div class="grid2">
+    <div class="field">
+      <label>Phân loại</label>
+      <select id="cat" class="control">
+        <option value="suggestion">💡 Góp ý</option>
+        <option value="bug">🐛 Báo lỗi</option>
+        <option value="other">💬 Khác</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Tiêu đề</label>
+      <input id="title" class="control" placeholder="VD: Thêm /warp market + chỉnh giá..." />
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Nội dung</label>
+    <textarea id="content" class="control" placeholder="Mô tả chi tiết, lý do, lợi ích, ảnh/video nếu có..."></textarea>
+  </div>
+
+  <div style="display:flex; gap:10px; flex-wrap:wrap;">
+    <button id="btnPost" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Đăng</button>
+    <button id="btnCancel" class="btn btn-secondary">Để sau</button>
+  </div>
+</div>
+
+<div class="panel">
+  <div style="display:flex; justify-content:space-between; align-items:center; gap: 12px; flex-wrap:wrap;">
+    <h3 style="margin:0;"><i class="fa-solid fa-list"></i> Bài góp ý</h3>
+    <div class="muted" style="font-size:0.92rem;">Tự cập nhật mỗi 5 giây</div>
+  </div>
+
+  <div id="postList" class="post-list">
+    </div>
+
+  <p id="empty" class="muted" style="margin-top: 14px; display:none;">Chưa có bài góp ý nào.</p>
+
+  <div id="paginationControls" class="pagination-controls" style="margin-top: 20px; text-align: center; display: none;">
+     </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  const postList = document.getElementById('postList');
+  const emptyNote = document.getElementById('empty');
+  const paginationControls = document.getElementById('paginationControls');
+  
+  // TỐI ƯU HIỆU NĂNG: Khai báo biến theo dõi Trang hiện tại
+  let currentPage = 1;
+
+  function escapeHtml(s){
+    return (s ?? '').toString()
+      .replaceAll('&','&amp;').replaceAll('<','&lt;')
+      .replaceAll('>','&gt;').replaceAll('"','&quot;')
+      .replaceAll("'","&#039;");
+  }
+
+  function statusBadge(status){
+    const cls = status === 'approved' ? 'st-approved' : (status === 'hidden' ? 'st-hidden' : 'st-pending');
+    const text = status === 'approved' ? 'Đã duyệt' : (status === 'hidden' ? 'Đã ẩn' : 'Chờ duyệt');
+    return `<span class="badge ${cls}"><span class="dot"></span>${text}</span>`;
+  }
+
+  function catLabel(cat){
+    if (cat === 'bug') return '🐛 Báo lỗi';
+    if (cat === 'other') return '💬 Khác';
+    return '💡 Góp ý';
+  }
+
+  function renderCard(p){
+    return `
+      <div class="post-card">
+        <div>
+          <div class="post-title">${escapeHtml(p.title)}</div>
+          <p class="post-meta">
+            ${catLabel(p.category)} • <b>${escapeHtml(p.author)}</b> • ${escapeHtml(p.created_at)}
+          </p>
+          <div style="margin-top:10px;">
+            ${statusBadge(p.status)}
+          </div>
+        </div>
+
+        <div class="post-actions">
+          <a class="btn btn-primary btn-sm" href="/feedback/${p.id}">
+            <i class="fa-regular fa-eye"></i> Xem
+          </a>
+        </div>
+      </div>
+    `;
+  }
+
+  // TỐI ƯU HIỆU NĂNG: Render nút phân trang
+  function renderPagination(page, hasNext) {
+    if (page === 1 && !hasNext) {
+      paginationControls.style.display = 'none';
+      return;
+    }
+    
+    paginationControls.style.display = 'block';
+    let html = '';
+    
+    if (page > 1) {
+      html += `<button class="btn btn-secondary btn-sm" onclick="changePage(-1)" style="margin-right: 10px;">&laquo; Trang trước</button>`;
+    } else {
+      html += `<button class="btn btn-secondary btn-sm" style="margin-right: 10px;" disabled>&laquo; Trang trước</button>`;
+    }
+
+    html += `<span style="font-weight: bold; margin: 0 10px; color: var(--muted);">Trang ${page}</span>`;
+
+    if (hasNext) {
+      html += `<button class="btn btn-secondary btn-sm" onclick="changePage(1)" style="margin-left: 10px;">Trang sau &raquo;</button>`;
+    } else {
+      html += `<button class="btn btn-secondary btn-sm" style="margin-left: 10px;" disabled>Trang sau &raquo;</button>`;
+    }
+    
+    paginationControls.innerHTML = html;
+  }
+
+  // Hàm xử lý khi người chơi bấm chuyển trang
+  function changePage(step) {
+    currentPage += step;
+    fetchList();
+    // Cuộn mượt mà lên đầu danh sách bài viết
+    document.querySelector('.panel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // TỐI ƯU HIỆU NĂNG: Đính kèm page vào URL fetch
+  async function fetchList(){
+    const res = await fetch(`/api/feedback/list?page=${currentPage}`, { cache: 'no-store' });
+    const data = await res.json().catch(() => ({ posts: [], has_next: false, current_page: 1 }));
+
+    const posts = data.posts || [];
+    postList.innerHTML = posts.map(renderCard).join('');
+    emptyNote.style.display = posts.length ? 'none' : 'block';
+    
+    // Gọi hàm render nút bấm
+    renderPagination(data.current_page || currentPage, data.has_next);
+  }
+
+  // new post
+  const btnOpen = document.getElementById('btnOpen');
+  const box = document.getElementById('newPost');
+
+  btnOpen?.addEventListener('click', () => {
+    box.style.display = 'block';
+    box.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+  document.getElementById('btnCancel')?.addEventListener('click', () => {
+    box.style.display = 'none';
+  });
+
+  document.getElementById('btnPost')?.addEventListener('click', async () => {
+    const title = document.getElementById('title').value.trim();
+    const content = document.getElementById('content').value.trim();
+    const category = document.getElementById('cat').value;
+
+    if (!title || !content) return showNotification?.('Nhập đủ tiêu đề và nội dung!', 'warning');
+
+    const res = await fetch('/feedback', {
+      method: 'POST',
+      headers: { 'Content-Type':'application/json' },
+      body: JSON.stringify({ title, content, category })
+    });
+
+    if (res.status === 401) return window.location.href = "/login";
+    const data = await res.json().catch(() => ({}));
+
+    if (res.ok && data.success){
+      showNotification?.('Đã gửi góp ý! Chờ duyệt nhé.', 'success');
+      document.getElementById('title').value = '';
+      document.getElementById('content').value = '';
+      box.style.display = 'none';
+      
+      // Đăng bài xong tự quay về trang 1
+      currentPage = 1; 
+      await fetchList();
+    } else {
+      showNotification?.(data.error || 'Đăng thất bại', 'error');
+    }
+  });
+
+  // Tự động load trang hiện tại sau mỗi 5s
+  setInterval(fetchList, 5000);
+  fetchList();
+</script>
+{% endblock %}

@@ -1,0 +1,746 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Panel - GenZ Era Wiki{% endblock %}
+
+{% block extra_css %}
+<style>
+  .admin-container { display: grid; grid-template-columns: 260px 1fr; gap: 22px; margin-bottom: 30px; }
+  .admin-sidebar {
+    background: var(--panel);
+    padding: 14px;
+    border-radius: 16px;
+    height: fit-content;
+    border: 1px solid var(--border);
+    box-shadow: 0 16px 45px rgba(0,0,0,0.45);
+  }
+  .admin-sidebar a {
+    display:flex;
+    align-items:center;
+    gap: 10px;
+    padding: 12px 12px;
+    margin-bottom: 10px;
+    border-radius: 14px;
+    text-decoration:none;
+    color:var(--text);
+    font-weight: 900;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid transparent;
+    transition: 0.18s;
+  }
+  .admin-sidebar a:hover {
+    transform: translateY(-1px);
+    border-color: rgba(126,242,255,0.25);
+    background: rgba(126,242,255,0.06);
+    color: var(--cyan);
+  }
+  .admin-sidebar a.active {
+    border-color: rgba(184,107,255,0.35);
+    background: rgba(184,107,255,0.12);
+    color: var(--cyan);
+    box-shadow: 0 0 18px rgba(184,107,255,0.10);
+  }
+
+  .admin-section { display:none; }
+  .admin-section.active { display:block; }
+
+  .panel-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 18px;
+    box-shadow: 0 16px 45px rgba(0,0,0,0.45);
+  }
+
+  .muted { color: var(--muted); }
+
+  .hero{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+  }
+  .hero-title{
+    display:flex; align-items:center; gap: 12px;
+  }
+  .hero-icon{
+    width: 46px; height: 46px;
+    border-radius: 16px;
+    display:flex; align-items:center; justify-content:center;
+    background: #0f1626;
+    border: 1px solid var(--border);
+    color: var(--purple);
+    box-shadow: 0 0 18px rgba(184,107,255,0.12);
+    font-size: 18px;
+  }
+  .hero h1{ margin:0; font-size: 1.4rem; }
+  .role-pill{
+    display:inline-flex; align-items:center; gap:8px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.03);
+    color: var(--muted);
+    font-weight: 900;
+    font-size: 0.86rem;
+  }
+
+  /* Article list */
+  .article-list { list-style:none; padding-left:0; margin: 0; }
+  .article-item{
+    background: rgba(15,22,38,0.55);
+    border: 1px solid rgba(38,50,73,0.85);
+    border-radius: 16px;
+    padding: 14px;
+    margin-bottom: 12px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap: 12px;
+  }
+  .article-info h3 { margin:0 0 6px 0; font-size: 1.02rem; }
+  .article-info p { margin:0; color: var(--muted); font-size: 0.9rem; }
+
+  .article-actions { display:flex; gap:10px; flex-wrap:wrap; }
+  .btn-mini{
+    padding: 8px 12px;
+    border-radius: 12px;
+    font-weight: 900;
+    cursor:pointer;
+    border: 1px solid var(--border);
+    background:#0f1626;
+    color: var(--text);
+    transition: 0.15s;
+  }
+  .btn-mini:hover{ transform: translateY(-2px); }
+  .btn-mini.danger{ border-color: rgba(239,68,68,0.45); color: #ffd1d1; background: rgba(239,68,68,0.10); }
+  .btn-mini.primary{ border-color: rgba(91,140,255,0.45); color: #cfe0ff; background: rgba(91,140,255,0.10); }
+
+  /* Create form */
+  .create-grid{
+    display:grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 14px;
+  }
+  @media (max-width: 1000px){
+    .admin-container{ grid-template-columns: 1fr; }
+    .create-grid{ grid-template-columns: 1fr; }
+  }
+
+  .field{
+    background: rgba(15,22,38,0.55);
+    border: 1px solid rgba(38,50,73,0.85);
+    border-radius: 16px;
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+  .field label{
+    display:block;
+    font-weight: 900;
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+  }
+  .control{
+    width: 100%;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    background: #0f1626;
+    color: var(--text);
+    padding: 12px 12px;
+    outline: none;
+    transition: 0.15s;
+    margin: 0;
+  }
+  .control:focus{
+    border-color: rgba(126,242,255,0.55);
+    box-shadow: 0 0 0 4px rgba(126,242,255,0.10);
+  }
+  textarea.control{ min-height: 360px; resize: vertical; }
+
+  .toolbar{
+    display:flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+  .toolbtn{
+    padding: 8px 10px;
+    border-radius: 12px;
+    border: 1px solid rgba(38,50,73,0.9);
+    background: rgba(15,22,38,0.55);
+    color: var(--text);
+    font-weight: 900;
+    cursor:pointer;
+    transition: 0.15s;
+  }
+  .toolbtn:hover{
+    transform: translateY(-2px);
+    border-color: rgba(184,107,255,0.35);
+    box-shadow: 0 0 16px rgba(184,107,255,0.10);
+  }
+
+  .sidebox-title{
+    display:flex; align-items:center; gap: 10px;
+    margin: 0 0 10px 0;
+    font-size: 1.02rem;
+  }
+  .sidebox-title i{ color: var(--cyan); }
+
+  .hint{
+    color: var(--muted);
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+
+  .preview{
+    background: #0f1626;
+    border: 1px solid rgba(38,50,73,0.9);
+    border-radius: 16px;
+    padding: 14px;
+    min-height: 200px;
+    overflow:auto;
+  }
+
+  /* feedback moderation list */
+  .fb-item{
+    background: rgba(15,22,38,0.55);
+    border: 1px solid rgba(38,50,73,0.85);
+    border-radius: 16px;
+    padding: 14px;
+    margin-bottom: 12px;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap: 12px;
+  }
+  .fb-title{ font-weight: 950; margin:0 0 8px 0; font-size: 1.02rem; }
+  .fb-meta{ margin:0; color: var(--muted); font-size: 0.92rem; line-height:1.45; }
+  .fb-actions{ display:flex; gap: 10px; flex-wrap:wrap; justify-content:flex-end; }
+  .badge{
+    display:inline-flex; align-items:center; gap:8px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-weight: 900;
+    font-size: 0.82rem;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.03);
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .dot{ width: 10px; height: 10px; border-radius: 50%; }
+  .st-pending .dot{ background: var(--gold); box-shadow: 0 0 10px rgba(255,211,106,0.25); }
+  .st-approved .dot{ background: var(--green); box-shadow: 0 0 10px rgba(69,243,163,0.25); }
+  .st-hidden .dot{ background: var(--red); box-shadow: 0 0 10px rgba(255,85,85,0.25); }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="hero">
+  <div class="hero-title">
+    <div class="hero-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+    <div>
+      <h1>Panel Quản Trị</h1>
+      <div class="muted" style="margin-top:4px;">Quản lý bài viết, góp ý cộng đồng và phân quyền.</div>
+    </div>
+  </div>
+
+  <div class="role-pill">
+    <i class="fa-solid fa-user-shield"></i>
+    {% if current_user.is_admin %}
+      <span style="color: var(--gold);">ADMIN</span>
+    {% elif current_user.is_staff %}
+      <span style="color: var(--cyan);">STAFF</span>
+    {% else %}
+      <span>USER</span>
+    {% endif %}
+  </div>
+</div>
+
+<div class="admin-container">
+  <div class="admin-sidebar">
+    <a href="#" data-target="articles" class="active"><i class="fa-solid fa-file-lines"></i> Quản Lý Bài Viết</a>
+    <a href="#" data-target="create"><i class="fa-solid fa-pen-to-square"></i> Viết Bài Mới</a>
+    <a href="#" data-target="feedback"><i class="fa-solid fa-lightbulb"></i> Duyệt Góp Ý</a>
+    {% if current_user.is_admin %}
+      <a href="#" data-target="roles"><i class="fa-solid fa-shield-halved"></i> Quản Lý Staff</a>
+    {% endif %}
+  </div>
+
+  <div class="admin-content">
+    <!-- ARTICLES -->
+    <div id="articles" class="admin-section active">
+      <div class="panel-card">
+        <h2 style="margin-bottom: 14px;"><i class="fa-solid fa-file-lines"></i> Danh sách bài viết</h2>
+
+        <ul class="article-list">
+          {% for article in articles %}
+            <li class="article-item" data-id="{{ article.id }}">
+              <div class="article-info">
+                <h3>{{ article.title }}</h3>
+                <p>
+                  <i class="fa-solid fa-folder"></i> {{ article.category }}
+                  &nbsp;•&nbsp;
+                  <i class="fa-regular fa-calendar"></i> {{ article.created_at.strftime('%d/%m/%Y') }}
+                </p>
+              </div>
+              <div class="article-actions">
+                <button class="btn-mini primary" type="button" onclick="editArticle({{ article.id }})">
+                  <i class="fa-solid fa-pen"></i> Sửa
+                </button>
+                <button class="btn-mini danger" type="button" onclick="deleteArticle({{ article.id }})">
+                  <i class="fa-solid fa-trash"></i> Xóa
+                </button>
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+
+        {% if articles|length == 0 %}
+          <p class="muted">Chưa có bài viết.</p>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- CREATE / EDIT -->
+    <div id="create" class="admin-section">
+      <div class="panel-card">
+        <h2 style="margin-bottom: 14px;"><i class="fa-solid fa-pen-to-square"></i> Viết Bài Mới</h2>
+
+        <!-- Edit mode bar -->
+        <div id="editBar" class="field" style="display:none; border-color: rgba(255,211,106,0.25); background: rgba(255,211,106,0.06);">
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;">
+            <div style="font-weight: 950;">
+              <i class="fa-solid fa-pen"></i> Đang sửa bài: <span id="editingTitle" style="color: var(--gold);"></span>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <button class="btn btn-secondary" type="button" onclick="cancelEdit()">
+                <i class="fa-solid fa-xmark"></i> Hủy sửa
+              </button>
+            </div>
+          </div>
+          <div class="hint" style="margin-top:8px;">
+            Tip: Khi sửa xong bấm <b>Cập nhật</b>. Bạn có thể chuyển trạng thái Công khai/Nháp và ưu tiên.
+          </div>
+        </div>
+
+        <div class="create-grid">
+          <div>
+            <form id="articleForm">
+              <div class="field">
+                <label for="title"><i class="fa-solid fa-heading"></i> Tiêu đề</label>
+                <input class="control" type="text" id="title" placeholder="VD: Bảo trì máy chủ 20:00..." required>
+              </div>
+
+              <div class="field">
+                <label for="category"><i class="fa-solid fa-layer-group"></i> Danh mục</label>
+                <select class="control" id="category" required>
+                  <option value="">-- Chọn Danh Mục --</option>
+                  <option value="event">⚡ Sự Kiện</option>
+                  <option value="maintenance">🔧 Bảo Trì</option>
+                  <option value="news">📣 Thông Báo</option>
+                  <option value="recharge">💳 Nạp Tiền</option>
+                  <option value="support">💬 Hỗ Trợ</option>
+                </select>
+              </div>
+
+              <div class="create-grid" style="grid-template-columns: 1fr 1fr; gap: 12px;">
+                <div class="field">
+                  <label for="priority"><i class="fa-solid fa-star"></i> Ưu tiên</label>
+                  <select class="control" id="priority">
+                    <option value="0">⭐ Bình thường</option>
+                    <option value="1">⭐⭐ Cao</option>
+                    <option value="2">⭐⭐⭐ Khẩn cấp</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label for="published"><i class="fa-solid fa-globe"></i> Trạng thái</label>
+                  <select class="control" id="published">
+                    <option value="true">✅ Công Khai</option>
+                    <option value="false">🔒 Nháp</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="field">
+                <label><i class="fa-solid fa-code"></i> Nội dung (hỗ trợ HTML)</label>
+                <div class="toolbar">
+                  <button class="toolbtn" type="button" onclick="insertTag('<b>','</b>')"><i class="fa-solid fa-bold"></i></button>
+                  <button class="toolbtn" type="button" onclick="insertTag('<i>','</i>')"><i class="fa-solid fa-italic"></i></button>
+                  <button class="toolbtn" type="button" onclick="insertTag('<h2>','</h2>')"><i class="fa-solid fa-heading"></i></button>
+                  <button class="toolbtn" type="button" onclick="insertTag('<code>','</code>')"><i class="fa-solid fa-code"></i></button>
+                  <button class="toolbtn" type="button" onclick="insertTag('<br>')"><i class="fa-solid fa-turn-down"></i></button>
+                  <button class="toolbtn" type="button" onclick="insertTag('<ul><li>','</li></ul>')"><i class="fa-solid fa-list-ul"></i></button>
+                </div>
+
+                <textarea class="control" id="content" placeholder="Viết nội dung..." required></textarea>
+
+                <div class="hint" style="margin-top: 10px;">
+                  Tip: bạn có thể dùng <b>&lt;b&gt;</b>, <b>&lt;i&gt;</b>, <b>&lt;h2&gt;</b>, <b>&lt;br&gt;</b> để format nhanh.
+                </div>
+              </div>
+
+              <button id="submitBtn" type="submit" class="btn btn-primary" style="width:100%; padding: 14px; border-radius: 14px; font-weight: 900;">
+                <i class="fa-solid fa-paper-plane"></i> Đăng Bài
+              </button>
+            </form>
+          </div>
+
+          <div>
+            <div class="field">
+              <h3 class="sidebox-title"><i class="fa-regular fa-eye"></i> Preview nhanh</h3>
+              <div id="previewBox" class="preview muted">
+                Nhập nội dung ở bên trái để xem preview.
+              </div>
+            </div>
+
+            <div class="field">
+              <h3 class="sidebox-title"><i class="fa-solid fa-circle-info"></i> Gợi ý</h3>
+              <div class="hint">
+                • Nếu bài quan trọng, đặt ưu tiên ⭐⭐ hoặc ⭐⭐⭐.<br>
+                • Chọn <b>Nháp</b> để soạn trước rồi công khai sau.<br>
+                • Tránh dán HTML lạ nếu không cần.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FEEDBACK MODERATION -->
+    <div id="feedback" class="admin-section">
+      <div class="panel-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom: 10px;">
+          <h2 style="margin:0;"><i class="fa-solid fa-lightbulb"></i> Duyệt Góp Ý</h2>
+          <a href="/feedback" class="btn btn-secondary" style="border-radius: 14px;">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> Xem ngoài trang
+          </a>
+        </div>
+        <p class="muted" style="margin:0 0 14px 0;">
+          Bài của member sẽ ở <b>Pending</b> cho đến khi được duyệt.
+        </p>
+
+        {% if feedbacks|length == 0 %}
+          <p class="muted">Chưa có bài góp ý.</p>
+        {% endif %}
+
+        {% for p in feedbacks %}
+          <div class="fb-item" data-fb="{{ p.id }}">
+            <div>
+              <div class="fb-title">#{{ p.id }} — {{ p.title }}</div>
+              <p class="fb-meta">
+                <i class="fa-solid fa-user"></i> <b>{{ p.user.username }}</b>
+                &nbsp;•&nbsp;
+                <i class="fa-regular fa-clock"></i> {{ p.created_at.strftime('%d/%m %H:%M') }}
+                &nbsp;•&nbsp;
+                <i class="fa-solid fa-tag"></i> {{ p.category }}
+              </p>
+
+              <div style="margin-top:10px;">
+                {% if p.status == 'approved' %}
+                  <span class="badge st-approved"><span class="dot"></span>Đã duyệt</span>
+                {% elif p.status == 'hidden' %}
+                  <span class="badge st-hidden"><span class="dot"></span>Đã ẩn</span>
+                {% else %}
+                  <span class="badge st-pending"><span class="dot"></span>Pending</span>
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="fb-actions">
+              <a class="btn btn-primary" style="border-radius: 14px;" href="/feedback/{{ p.id }}">
+                <i class="fa-regular fa-eye"></i> Xem
+              </a>
+
+              <button class="btn btn-secondary" style="border-radius: 14px;" type="button"
+                      onclick="setFeedbackStatus({{ p.id }}, 'approved')">
+                <i class="fa-solid fa-check"></i> Duyệt
+              </button>
+
+              <button class="btn btn-secondary" style="border-radius: 14px;" type="button"
+                      onclick="setFeedbackStatus({{ p.id }}, 'hidden')">
+                <i class="fa-solid fa-eye-slash"></i> Ẩn
+              </button>
+
+              <button class="btn btn-secondary" style="border-radius: 14px;" type="button"
+                      onclick="setFeedbackStatus({{ p.id }}, 'pending')">
+                <i class="fa-solid fa-clock"></i> Pending
+              </button>
+
+              <button class="btn btn-secondary" style="border-radius: 14px; background: rgba(239,68,68,0.14); border-color: rgba(239,68,68,0.45); color:#ffd1d1;"
+                      type="button"
+                      onclick="deleteFeedback({{ p.id }})">
+                <i class="fa-solid fa-trash"></i> Xóa
+              </button>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- ROLES -->
+    {% if current_user.is_admin %}
+    <div id="roles" class="admin-section">
+      <div class="panel-card">
+        <h2 style="margin-bottom: 14px;"><i class="fa-solid fa-shield-halved"></i> Quản Lý Staff/Admin</h2>
+        <p class="muted" style="margin-bottom: 10px;">Nhập <b>username</b> rồi chọn role để cấp quyền.</p>
+
+        <div class="field">
+          <label for="roleUsername"><i class="fa-solid fa-user"></i> Username</label>
+          <input class="control" id="roleUsername" type="text" placeholder="VD: dungnguyen" />
+        </div>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <button class="btn btn-secondary" type="button" onclick="setRole('user')"><i class="fa-solid fa-rotate-left"></i> User</button>
+          <button class="btn btn-secondary" type="button" onclick="setRole('staff')"><i class="fa-solid fa-user-gear"></i> Staff</button>
+          <button class="btn btn-primary" type="button" onclick="setRole('admin')"><i class="fa-solid fa-crown"></i> Admin</button>
+        </div>
+
+        <p class="muted" style="margin-top: 12px; font-size: 0.95rem;">
+          Staff: duyệt góp ý + đăng/xóa bài. Admin: cấp quyền + toàn quyền.
+        </p>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  // ===== Edit state =====
+  let editingArticleId = null;
+  let createDraftCache = null;
+
+  function setEditMode(on, titleText = '') {
+    const bar = document.getElementById('editBar');
+    const t = document.getElementById('editingTitle');
+    const btn = document.getElementById('submitBtn');
+
+    if (on) {
+      if (bar) bar.style.display = '';
+      if (t) t.textContent = titleText || '(Không có tiêu đề)';
+      if (btn) btn.innerHTML = `<i class="fa-solid fa-floppy-disk"></i> Cập nhật bài viết`;
+    } else {
+      if (bar) bar.style.display = 'none';
+      if (t) t.textContent = '';
+      if (btn) btn.innerHTML = `<i class="fa-solid fa-paper-plane"></i> Đăng Bài`;
+    }
+  }
+
+  function fillFormFromArticle(a) {
+    document.getElementById('title').value = a.title || '';
+    document.getElementById('content').value = a.content || '';
+    document.getElementById('category').value = a.category || '';
+    document.getElementById('priority').value = String(a.priority ?? 0);
+    document.getElementById('published').value = (a.is_published ? 'true' : 'false');
+
+    document.getElementById('title')?.dispatchEvent(new Event('input'));
+    document.getElementById('content')?.dispatchEvent(new Event('input'));
+  }
+
+  function snapshotCreateForm() {
+    return {
+      title: document.getElementById('title').value,
+      content: document.getElementById('content').value,
+      category: document.getElementById('category').value,
+      priority: document.getElementById('priority').value,
+      published: document.getElementById('published').value
+    };
+  }
+
+  function restoreCreateForm(cache) {
+    if (!cache) return;
+    document.getElementById('title').value = cache.title || '';
+    document.getElementById('content').value = cache.content || '';
+    document.getElementById('category').value = cache.category || '';
+    document.getElementById('priority').value = cache.priority || '0';
+    document.getElementById('published').value = cache.published || 'true';
+
+    document.getElementById('title')?.dispatchEvent(new Event('input'));
+    document.getElementById('content')?.dispatchEvent(new Event('input'));
+  }
+
+  function cancelEdit() {
+    editingArticleId = null;
+    setEditMode(false);
+    restoreCreateForm(createDraftCache);
+    createDraftCache = null;
+    showNotification?.('Đã hủy sửa', 'warning');
+  }
+
+  // ===== Tabs + preview =====
+  document.addEventListener('DOMContentLoaded', () => {
+    const links = document.querySelectorAll('.admin-sidebar a[data-target]');
+    links.forEach(a => {
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        const id = a.getAttribute('data-target');
+
+        document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.admin-sidebar a').forEach(x => x.classList.remove('active'));
+
+        const section = document.getElementById(id);
+        if (section) section.classList.add('active');
+        a.classList.add('active');
+      });
+    });
+
+    // preview
+    const content = document.getElementById('content');
+    const title = document.getElementById('title');
+    const box = document.getElementById('previewBox');
+
+    const render = () => {
+      if (!box) return;
+      const t = title?.value?.trim();
+      const c = content?.value?.trim();
+      if (!t && !c) {
+        box.classList.add('muted');
+        box.innerHTML = "Nhập nội dung ở bên trái để xem preview.";
+        return;
+      }
+      box.classList.remove('muted');
+      box.innerHTML = `<h3 style="margin:0 0 10px 0;">${escapeHtml(t || '(Chưa có tiêu đề)')}</h3>` + (c || '');
+    };
+
+    title?.addEventListener('input', render);
+    content?.addEventListener('input', render);
+    render();
+  });
+
+  function escapeHtml(s){
+    return (s ?? '').toString()
+      .replaceAll('&','&amp;').replaceAll('<','&lt;')
+      .replaceAll('>','&gt;').replaceAll('"','&quot;')
+      .replaceAll("'","&#039;");
+  }
+
+  function insertTag(openTag, closeTag = '') {
+    const textarea = document.getElementById('content');
+    if (!textarea) return;
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const selectedText = textarea.value.substring(start, end);
+    const before = textarea.value.substring(0, start);
+    const after = textarea.value.substring(end);
+    textarea.value = before + openTag + selectedText + closeTag + after;
+    textarea.focus();
+    textarea.dispatchEvent(new Event('input'));
+  }
+
+  // ===== Create / Update submit (ONE handler only) =====
+  document.getElementById('articleForm')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const payload = {
+      title: document.getElementById('title').value,
+      content: document.getElementById('content').value,
+      category: document.getElementById('category').value,
+      priority: parseInt(document.getElementById('priority').value),
+      is_published: document.getElementById('published').value === 'true'
+    };
+
+    if (!payload.title?.trim() || !payload.content?.trim() || !payload.category?.trim()) {
+      showNotification?.('Thiếu tiêu đề / nội dung / danh mục', 'error');
+      return;
+    }
+
+    let url = '/api/article/create';
+    let okMsg = 'Bài viết đã được đăng!';
+
+    if (editingArticleId !== null) {
+      url = `/api/article/${editingArticleId}/update`;
+      okMsg = 'Đã cập nhật bài viết!';
+    }
+
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(payload)
+    });
+
+    const data = await res.json().catch(async () => ({ error: await res.text() }));
+
+    if (res.ok) showNotification?.(okMsg, 'success', 'reload');
+    else showNotification?.(data.error || 'Có lỗi xảy ra', 'error');
+  });
+
+  async function deleteArticle(id) {
+    if (!confirm('Bạn chắc chắn muốn xóa bài viết này?')) return;
+    const res = await fetch(`/api/article/${id}/delete`, { method: 'POST' });
+    if (res.ok) {
+      document.querySelector(`[data-id="${id}"]`)?.remove();
+      showNotification?.('Đã xóa bài viết!', 'success');
+    } else {
+      showNotification?.('Không xóa được.', 'error');
+    }
+  }
+
+  async function editArticle(id) {
+    // switch to "create" tab to edit
+    document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+    document.getElementById('create')?.classList.add('active');
+    document.querySelectorAll('.admin-sidebar a').forEach(x => x.classList.remove('active'));
+    document.querySelector('.admin-sidebar a[data-target="create"]')?.classList.add('active');
+
+    // cache current draft once
+    if (editingArticleId === null) createDraftCache = snapshotCreateForm();
+
+    const res = await fetch(`/api/article/${id}`);
+    const data = await res.json().catch(async () => ({ error: await res.text() }));
+
+    if (!res.ok) {
+      showNotification?.(data.error || 'Không load được bài viết', 'error');
+      return;
+    }
+
+    editingArticleId = id;
+    fillFormFromArticle(data);
+    setEditMode(true, data.title);
+    showNotification?.('Đã mở chế độ sửa bài', 'success');
+  }
+
+  async function setRole(role) {
+    const username = document.getElementById('roleUsername').value.trim();
+    if (!username) return showNotification?.('Nhập username trước đã!', 'error');
+
+    const res = await fetch('/api/admin/set-role', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ username, role })
+    });
+
+    const data = await res.json().catch(() => ({}));
+    if (data.success) showNotification?.(`Đã set role cho ${data.username}`, 'success', 'reload');
+    else showNotification?.(data.error || 'Có lỗi xảy ra', 'error');
+  }
+
+  async function setFeedbackStatus(id, status){
+    const res = await fetch(`/api/admin/feedback/${id}/status`, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ status })
+    });
+    const data = await res.json().catch(() => ({}));
+    if (res.ok){
+      showNotification?.('Đã cập nhật trạng thái', 'success', 'reload');
+    } else {
+      showNotification?.(data.error || 'Thao tác thất bại', 'error');
+    }
+  }
+
+  async function deleteFeedback(id){
+    if (!confirm('Xóa bài góp ý này?')) return;
+    const res = await fetch(`/api/feedback/${id}/delete`, { method:'POST' });
+    const data = await res.json().catch(() => ({}));
+    if (res.ok){
+      showNotification?.('Đã xóa', 'success', 'reload');
+    } else {
+      showNotification?.(data.error || 'Xóa thất bại', 'error');
+    }
+  }
+</script>
+{% endblock %}

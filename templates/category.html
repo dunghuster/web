@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}{{ category_title }} – GenZ Era{% endblock %}
+
+{% block content %}
+<a href="/" style="color:#9ecbff; text-decoration:none; margin-bottom: 16px; display:inline-block;">← Quay lại trang chủ</a>
+
+<div class="card">
+  <h1 style="margin-bottom: 6px;">{{ category_title }}</h1>
+  <p style="color: var(--muted); margin-bottom: 16px;">
+    Danh sách bài viết trong mục: <b>{{ category }}</b>
+  </p>
+
+  {% if articles and articles|length > 0 %}
+    {% for a in articles %}
+      <div class="article-item">
+        <div class="article-row">
+          <a class="article-link" href="/article/{{ a.id }}">{{ a.title }}</a>
+          <div class="article-meta">{{ a.created_at.strftime('%d/%m/%Y') }}</div>
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <div class="empty-state">Chưa có bài viết nào.</div>
+  {% endif %}
+</div>
+{% endblock %}

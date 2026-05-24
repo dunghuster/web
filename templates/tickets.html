@@ -1,0 +1,431 @@
+{% extends "base.html" %}
+
+{% block title %}Góp Ý & Hỗ Trợ{% endblock %}
+
+{% block extra_css %}
+<style>
+  .tickets-head{
+    display:flex; justify-content:space-between; align-items:center;
+    margin-bottom: 18px; gap: 12px; flex-wrap: wrap;
+  }
+
+  .panel{
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 18px;
+    box-shadow: 0 16px 45px rgba(0,0,0,0.45);
+  }
+
+  .table{
+    width:100%;
+    border-collapse: collapse;
+    overflow:hidden;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    background: #121a2b;
+  }
+  .table th{
+    background: #0f1626;
+    padding: 14px;
+    text-align:left;
+    border-bottom: 1px solid var(--border);
+    color: var(--muted);
+    font-weight: 900;
+    font-size: 0.92rem;
+  }
+  .table td{
+    padding: 14px;
+    border-bottom: 1px solid rgba(38,50,73,0.55);
+    vertical-align: middle;
+  }
+  .row-title{ font-weight: 800; color: var(--text); }
+
+  .badge{
+    display:inline-flex; align-items:center; gap: 8px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-weight: 900;
+    font-size: 0.82rem;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.03);
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .dot{ width: 10px; height: 10px; border-radius: 50%; }
+  .st-open .dot{ background: var(--red); box-shadow: 0 0 10px rgba(255,85,85,0.25); }
+  .st-answered .dot{ background: var(--primary); box-shadow: 0 0 10px rgba(91,140,255,0.25); }
+  .st-closed .dot{ background: var(--green); box-shadow: 0 0 10px rgba(69,243,163,0.25); }
+
+  .actions{ display:flex; gap: 10px; flex-wrap: wrap; }
+  .btn-sm{ padding: 7px 12px; font-size: 0.9rem; border-radius: 10px; }
+  .btn-warn{
+    background: rgba(251,191,36,0.14);
+    border: 1px solid rgba(251,191,36,0.45);
+    color: #ffe7b0;
+  }
+  .btn-danger{
+    background: rgba(239,68,68,0.14);
+    border: 1px solid rgba(239,68,68,0.45);
+    color: #ffd1d1;
+  }
+
+  /* ===== NEW TICKET FORM (PRETTY) ===== */
+  .new-ticket {
+    position: relative;
+    overflow: hidden;
+    border-radius: 18px;
+    border: 1px solid rgba(184,107,255,0.35);
+    background: linear-gradient(135deg, rgba(184,107,255,0.12), rgba(126,242,255,0.06));
+  }
+  .new-ticket::before{
+    content:'';
+    position:absolute; inset:0;
+    background: radial-gradient(700px 240px at 15% 15%, rgba(126,242,255,0.14), transparent 55%),
+                radial-gradient(720px 260px at 85% 45%, rgba(184,107,255,0.16), transparent 58%);
+    pointer-events:none;
+  }
+  .new-ticket > * { position: relative; z-index: 2; }
+
+  .new-ticket-head{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .new-ticket-title{
+    display:flex;
+    align-items:center;
+    gap: 10px;
+  }
+  .new-ticket-icon{
+    width: 42px; height: 42px;
+    border-radius: 14px;
+    display:flex; align-items:center; justify-content:center;
+    background: rgba(20,28,46,0.75);
+    border: 1px solid var(--border);
+    box-shadow: 0 0 18px rgba(184,107,255,0.15);
+    font-size: 18px;
+  }
+  .new-ticket-title h3{
+    margin:0;
+  }
+  .new-ticket-sub{
+    margin: 4px 0 0 0;
+    color: var(--muted);
+    font-size: 0.92rem;
+  }
+
+  .field-row{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  @media (max-width: 900px){
+    .field-row{ grid-template-columns: 1fr; }
+  }
+
+  .field{
+    background: rgba(15,22,38,0.55);
+    border: 1px solid rgba(38,50,73,0.8);
+    border-radius: 14px;
+    padding: 12px;
+  }
+  .field label{
+    display:block;
+    font-weight: 900;
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+  }
+
+  .field input, .field select, .field textarea{
+    width: 100%;
+    margin: 0;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: #0f1626;
+    color: var(--text);
+    padding: 12px 12px;
+    outline: none;
+    transition: 0.15s;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus{
+    border-color: rgba(126,242,255,0.55);
+    box-shadow: 0 0 0 4px rgba(126,242,255,0.10);
+  }
+
+  .new-ticket-actions{
+    display:flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+  }
+  .btn-ghost{
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+  .btn-ghost:hover{
+    transform: translateY(-2px);
+    border-color: rgba(184,107,255,0.45);
+    box-shadow: 0 0 18px rgba(184,107,255,0.10);
+  }
+
+  .new-ticket-actions .btn{
+    border-radius: 12px;
+    font-weight: 900;
+    padding: 11px 14px;
+  }
+
+  /* Style cho nút phân trang */
+  .pagination-controls button {
+    cursor: pointer;
+  }
+  .pagination-controls button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="tickets-head">
+  <h1>🎫 Góp Ý & Hỗ Trợ</h1>
+  {% if not is_admin %}
+    <button id="btnOpenNew" class="btn btn-primary">+ Tạo Yêu Cầu</button>
+  {% endif %}
+</div>
+
+{% if not is_admin %}
+<div id="newTicketForm" class="panel new-ticket enchanted" style="margin-bottom: 18px; display:none;">
+  <div class="new-ticket-head">
+    <div class="new-ticket-title">
+      <div class="new-ticket-icon">📝</div>
+      <div>
+        <h3>Tạo Yêu Cầu Mới</h3>
+        <p class="new-ticket-sub">Gửi hỗ trợ / góp ý / báo lỗi. Staff sẽ phản hồi trong ticket.</p>
+      </div>
+    </div>
+    <span class="badge st-open"><span class="dot"></span>NEW</span>
+  </div>
+
+  <div class="field-row">
+    <div class="field">
+      <label for="t-cat">Phân loại</label>
+      <select id="t-cat">
+        <option value="support">🛠️ Hỗ Trợ</option>
+        <option value="suggestion">💡 Góp Ý</option>
+        <option value="bug">🐛 Báo Lỗi</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="t-title">Tiêu đề</label>
+      <input type="text" id="t-title" placeholder="VD: Mất đồ sau khi chết ở Nether...">
+    </div>
+  </div>
+
+  <div class="field" style="margin-top: 12px;">
+    <label for="t-msg">Chi tiết</label>
+    <textarea id="t-msg" rows="4" placeholder="Mô tả rõ: thời gian, vị trí, vật phẩm, ảnh/video nếu có..."></textarea>
+  </div>
+
+  <div class="new-ticket-actions">
+    <button id="btnCreate" class="btn btn-primary" type="button">Gửi ticket</button>
+    <button id="btnCloseNew" class="btn btn-ghost" type="button">Để sau</button>
+  </div>
+</div>
+{% endif %}
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Phân Loại</th>
+      <th>Tiêu đề</th>
+      {% if is_admin %}<th>Người gửi</th>{% endif %}
+      <th>Trạng thái</th>
+      <th>Hành động</th>
+    </tr>
+  </thead>
+  <tbody id="ticketsBody">
+    </tbody>
+</table>
+
+<div id="paginationControls" class="pagination-controls" style="margin-top: 20px; text-align: center; display: none;">
+  </div>
+
+<p id="emptyNote" class="muted" style="margin-top: 14px; display:none;">Chưa có ticket.</p>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  const IS_ADMIN_RENDER = {{ 'true' if is_admin else 'false' }};
+  const tbody = document.getElementById('ticketsBody');
+  const emptyNote = document.getElementById('emptyNote');
+  const paginationControls = document.getElementById('paginationControls');
+
+  // Khai báo biến theo dõi Trang hiện tại
+  let currentPage = 1;
+
+  function catLabel(cat){
+    if (cat === 'suggestion') return '💡 Góp Ý';
+    if (cat === 'bug') return '🐛 Báo Lỗi';
+    return '🛠️ Hỗ Trợ';
+  }
+
+  function statusBadge(status){
+    const cls = status === 'open' ? 'st-open' : (status === 'answered' ? 'st-answered' : 'st-closed');
+    const text = status === 'open' ? 'Chờ xử lý' : (status === 'answered' ? 'Đã trả lời' : 'Đã đóng');
+    return `<span class="badge ${cls}"><span class="dot"></span>${text}</span>`;
+  }
+
+  function renderRow(t){
+    const viewBtn = `<a href="/ticket/${t.id}" class="btn btn-primary btn-sm">Xem</a>`;
+
+    let adminBtns = '';
+    if (IS_ADMIN_RENDER){
+      const closeBtn = (t.status !== 'closed')
+        ? `<button class="btn btn-secondary btn-sm btn-warn" type="button" data-act="close" data-id="${t.id}">Đóng</button>`
+        : '';
+      const delBtn = `<button class="btn btn-secondary btn-sm btn-danger" type="button" data-act="delete" data-id="${t.id}">Xóa</button>`;
+      adminBtns = closeBtn + delBtn;
+    }
+
+    return `
+      <tr data-row="${t.id}">
+        <td>${catLabel(t.category)}</td>
+        <td class="row-title">${escapeHtml(t.title)}</td>
+        ${IS_ADMIN_RENDER ? `<td>${escapeHtml(t.username || '')}</td>` : ''}
+        <td>${statusBadge(t.status)}</td>
+        <td><div class="actions">${viewBtn}${adminBtns}</div></td>
+      </tr>
+    `;
+  }
+
+  function escapeHtml(s){
+    return (s ?? '').toString()
+      .replaceAll('&','&amp;').replaceAll('<','&lt;')
+      .replaceAll('>','&gt;').replaceAll('"','&quot;')
+      .replaceAll("'","&#039;");
+  }
+
+  // Render nút phân trang
+  function renderPagination(page, hasNext) {
+    if (page === 1 && !hasNext) {
+      paginationControls.style.display = 'none';
+      return;
+    }
+    
+    paginationControls.style.display = 'block';
+    let html = '';
+    
+    if (page > 1) {
+      html += `<button class="btn btn-secondary btn-sm" onclick="changePage(-1)" style="margin-right: 10px;">&laquo; Trang trước</button>`;
+    } else {
+      html += `<button class="btn btn-secondary btn-sm" style="margin-right: 10px;" disabled>&laquo; Trang trước</button>`;
+    }
+
+    html += `<span style="font-weight: bold; margin: 0 10px; color: var(--muted);">Trang ${page}</span>`;
+
+    if (hasNext) {
+      html += `<button class="btn btn-secondary btn-sm" onclick="changePage(1)" style="margin-left: 10px;">Trang sau &raquo;</button>`;
+    } else {
+      html += `<button class="btn btn-secondary btn-sm" style="margin-left: 10px;" disabled>Trang sau &raquo;</button>`;
+    }
+    
+    paginationControls.innerHTML = html;
+  }
+
+  // Chuyển trang
+  function changePage(step) {
+    currentPage += step;
+    fetchTickets();
+  }
+
+  async function fetchTickets(){
+    const res = await fetch(`/api/tickets?page=${currentPage}`, { cache: 'no-store' });
+    if (res.status === 401) return window.location.href = "/login";
+    const data = await res.json();
+
+    const tickets = data.tickets || [];
+    tbody.innerHTML = tickets.map(renderRow).join('');
+    emptyNote.style.display = tickets.length ? 'none' : 'block';
+    
+    renderPagination(data.current_page || currentPage, data.has_next);
+  }
+
+  // admin actions (close/delete) without reload
+  tbody.addEventListener('click', async (e) => {
+    const btn = e.target.closest('button[data-act]');
+    if (!btn) return;
+
+    const id = btn.getAttribute('data-id');
+    const act = btn.getAttribute('data-act');
+
+    const ok = confirm(act === 'delete' ? 'Xóa vĩnh viễn ticket này?' : 'Đóng ticket này?');
+    if (!ok) return;
+
+    const res = await fetch(`/ticket/${id}`, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ action: act })
+    });
+
+    if (res.status === 401) return window.location.href = "/login";
+
+    if (res.ok) {
+      showNotification(act === 'delete' ? 'Đã xóa ticket.' : 'Đã đóng ticket.', 'success');
+      await fetchTickets(); // refresh without full reload
+    } else {
+      const data = await res.json().catch(() => ({}));
+      showNotification(data.error || 'Thao tác thất bại', 'error');
+    }
+  });
+
+  // create ticket without reload
+  {% if not is_admin %}
+  document.getElementById('btnOpenNew')?.addEventListener('click', () => {
+    document.getElementById('newTicketForm').style.display = 'block';
+  });
+  document.getElementById('btnCloseNew')?.addEventListener('click', () => {
+    document.getElementById('newTicketForm').style.display = 'none';
+  });
+
+  document.getElementById('btnCreate')?.addEventListener('click', async () => {
+    const title = document.getElementById('t-title').value.trim();
+    const message = document.getElementById('t-msg').value.trim();
+    const category = document.getElementById('t-cat').value;
+
+    if (!title || !message) return showNotification('Nhập đủ thông tin!', 'warning');
+
+    const res = await fetch('/tickets', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ title, message, category })
+    });
+
+    if (res.status === 401) return window.location.href = "/login";
+
+    if (res.ok) {
+      showNotification('Đã tạo ticket!', 'success');
+      document.getElementById('t-title').value = '';
+      document.getElementById('t-msg').value = '';
+      document.getElementById('newTicketForm').style.display = 'none';
+      
+      // Tạo xong thì quay về trang 1 để xem ticket mới
+      currentPage = 1;
+      await fetchTickets();
+    } else {
+      const data = await res.json().catch(() => ({}));
+      showNotification(data.error || 'Tạo ticket thất bại', 'error');
+    }
+  });
+  {% endif %}
+
+  // polling to avoid reload (user sees admin close)
+  setInterval(fetchTickets, 5000);
+  fetchTickets();
+</script>
+{% endblock %}

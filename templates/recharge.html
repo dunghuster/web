@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}Nạp tiền – GenZ Era{% endblock %}
+
+{% block content %}
+<div class="card">
+  <h1 style="margin-bottom:10px;">💎 Nạp tiền (VietQR)</h1>
+  <p style="color:var(--muted); margin-bottom:14px;">
+    Nhập số tiền → hệ thống tạo QR + nội dung chuyển khoản. (Giai đoạn 1: chưa auto cộng)
+  </p>
+
+  <div class="field">
+    <label>Số tiền (VND)</label>
+    <input id="amount" class="control" type="number" min="1000" step="1000" placeholder="VD: 100000">
+  </div>
+
+  <button class="btn btn-primary" type="button" onclick="makeQR()">
+    Tạo QR
+  </button>
+
+  <div id="result" style="margin-top:16px; display:none;">
+    <hr class="sep">
+
+    <div class="card" style="background: rgba(255,255,255,0.03);">
+      <div style="display:flex; gap:16px; flex-wrap:wrap; align-items:flex-start;">
+        <div>
+          <div style="font-weight:900; margin-bottom:6px;">QR chuyển khoản</div>
+          <img id="qrImg" alt="VietQR" style="width:260px; border-radius:12px; border:1px solid var(--border);" />
+        </div>
+
+        <div style="flex:1; min-width:240px;">
+          <div style="margin-bottom:10px;">
+            <div style="color:var(--muted); font-size:0.95rem;">Nội dung chuyển khoản (bắt buộc)</div>
+            <div style="font-weight:950; font-size:1.2rem;" id="codeText"></div>
+            <button class="btn btn-secondary" style="margin-top:8px;" type="button" onclick="copyCode()">
+              Copy nội dung
+            </button>
+          </div>
+
+          <div style="color:var(--muted); line-height:1.6;">
+            Sau khi chuyển khoản xong, bạn tạo Ticket gửi: tên ingame + ảnh/biên lai. (Auto sẽ làm ở giai đoạn 2)
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let lastCode = "";
+
+async function makeQR(){
+  const amount = parseInt(document.getElementById('amount').value || "0");
+  const res = await fetch('/api/recharge/vietqr', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ amount })
+  });
+
+  const data = await res.json().catch(() => ({}));
+  if(!res.ok){
+    showNotification?.(data.error || 'Lỗi tạo QR', 'error');
+    return;
+  }
+
+  lastCode = data.code;
+  document.getElementById('qrImg').src = data.qr_url;
+  document.getElementById('codeText').textContent = data.code;
+  document.getElementById('result').style.display = '';
+  showNotification?.('Đã tạo QR, nhớ ghi đúng nội dung chuyển khoản!', 'success');
+}
+
+function copyCode(){
+  if(!lastCode) return;
+  navigator.clipboard.writeText(lastCode);
+  showNotification?.('Đã copy nội dung chuyển khoản!', 'success');
+}
+</script>
+{% endblock %}

@@ -1,0 +1,697 @@
+[2026-05-04 07:36:22 +0000] [14765] [INFO] Starting gunicorn 23.0.0
+[2026-05-04 07:36:22 +0000] [14765] [INFO] Listening at: http://127.0.0.1:5000 (14765)
+[2026-05-04 07:36:22 +0000] [14765] [INFO] Using worker: gthread
+[2026-05-04 07:36:22 +0000] [14775] [INFO] Booting worker with pid: 14775
+[2026-05-04 07:36:22 +0000] [14782] [INFO] Booting worker with pid: 14782
+[2026-05-04 07:36:22 +0000] [14783] [INFO] Booting worker with pid: 14783
+[2026-05-04 07:36:30 +0000] [15510] [INFO] Starting gunicorn 23.0.0
+[2026-05-04 07:36:30 +0000] [15510] [ERROR] Connection in use: ('127.0.0.1', 5000)
+[2026-05-04 07:36:30 +0000] [15510] [ERROR] connection to ('127.0.0.1', 5000) failed: [Errno 98] Address already in use
+[2026-05-04 07:36:31 +0000] [15510] [ERROR] Connection in use: ('127.0.0.1', 5000)
+[2026-05-04 07:36:31 +0000] [15510] [ERROR] connection to ('127.0.0.1', 5000) failed: [Errno 98] Address already in use
+[2026-05-04 07:36:32 +0000] [15510] [ERROR] Connection in use: ('127.0.0.1', 5000)
+[2026-05-04 07:36:32 +0000] [15510] [ERROR] connection to ('127.0.0.1', 5000) failed: [Errno 98] Address already in use
+[2026-05-04 07:36:33 +0000] [15781] [INFO] Starting gunicorn 23.0.0
+[2026-05-04 07:36:33 +0000] [15781] [ERROR] Connection in use: ('127.0.0.1', 5000)
+[2026-05-04 07:36:33 +0000] [15781] [ERROR] connection to ('127.0.0.1', 5000) failed: [Errno 98] Address already in use
+[2026-05-04 07:36:33 +0000] [15510] [ERROR] Connection in use: ('127.0.0.1', 5000)
+[2026-05-04 07:36:33 +0000] [15510] [ERROR] connection to ('127.0.0.1', 5000) failed: [Errno 98] Address already in use
+[2026-05-04 07:36:34 +0000] [15781] [ERROR] Connection in use: ('127.0.0.1', 5000)
+[2026-05-04 07:36:34 +0000] [15781] [ERROR] connection to ('127.0.0.1', 5000) failed: [Errno 98] Address already in use
+[2026-05-04 07:36:34 +0000] [15510] [ERROR] Connection in use: ('127.0.0.1', 5000)
+[2026-05-04 07:36:34 +0000] [15510] [ERROR] connection to ('127.0.0.1', 5000) failed: [Errno 98] Address already in use
+[2026-05-04 07:36:35 +0000] [15781] [ERROR] Connection in use: ('127.0.0.1', 5000)
+[2026-05-04 07:36:35 +0000] [15781] [ERROR] connection to ('127.0.0.1', 5000) failed: [Errno 98] Address already in use
+[2026-05-04 07:36:35 +0000] [15510] [ERROR] Can't connect to ('127.0.0.1', 5000)
+[2026-05-04 07:36:36 +0000] [15781] [ERROR] Connection in use: ('127.0.0.1', 5000)
+[2026-05-04 07:36:36 +0000] [15781] [ERROR] connection to ('127.0.0.1', 5000) failed: [Errno 98] Address already in use
+[2026-05-04 07:36:37 +0000] [15781] [ERROR] Connection in use: ('127.0.0.1', 5000)
+[2026-05-04 07:36:37 +0000] [15781] [ERROR] connection to ('127.0.0.1', 5000) failed: [Errno 98] Address already in use
+[2026-05-04 07:36:38 +0000] [15781] [ERROR] Can't connect to ('127.0.0.1', 5000)
+[2026-05-17 15:32:29 +0000] [46935] [INFO] Starting gunicorn 23.0.0
+[2026-05-17 15:32:29 +0000] [46935] [INFO] Listening at: http://127.0.0.1:5000 (46935)
+[2026-05-17 15:32:29 +0000] [46935] [INFO] Using worker: gthread
+[2026-05-17 15:32:29 +0000] [46937] [INFO] Booting worker with pid: 46937
+[2026-05-17 15:32:29 +0000] [46938] [INFO] Booting worker with pid: 46938
+[2026-05-17 15:32:29 +0000] [46939] [INFO] Booting worker with pid: 46939
+[2026-05-23 19:36:47 +0000] [54999] [INFO] Starting gunicorn 23.0.0
+[2026-05-23 19:36:47 +0000] [54999] [INFO] Listening at: http://127.0.0.1:5000 (54999)
+[2026-05-23 19:36:47 +0000] [54999] [INFO] Using worker: gthread
+[2026-05-23 19:36:47 +0000] [55001] [INFO] Booting worker with pid: 55001
+[2026-05-23 19:36:47 +0000] [55002] [INFO] Booting worker with pid: 55002
+[2026-05-23 19:36:47 +0000] [55004] [INFO] Booting worker with pid: 55004
+[2026-05-23 19:39:34 +0000] [55501] [INFO] Starting gunicorn 23.0.0
+[2026-05-23 19:39:34 +0000] [55501] [ERROR] Connection in use: ('127.0.0.1', 5000)
+[2026-05-23 19:39:34 +0000] [55501] [ERROR] connection to ('127.0.0.1', 5000) failed: [Errno 98] Address already in use
+[2026-05-23 19:39:35 +0000] [55501] [ERROR] Connection in use: ('127.0.0.1', 5000)
+[2026-05-23 19:39:35 +0000] [55501] [ERROR] connection to ('127.0.0.1', 5000) failed: [Errno 98] Address already in use
+[2026-05-23 19:39:36 +0000] [55501] [ERROR] Connection in use: ('127.0.0.1', 5000)
+[2026-05-23 19:39:36 +0000] [55501] [ERROR] connection to ('127.0.0.1', 5000) failed: [Errno 98] Address already in use
+[2026-05-23 19:39:37 +0000] [55501] [ERROR] Connection in use: ('127.0.0.1', 5000)
+[2026-05-23 19:39:37 +0000] [55501] [ERROR] connection to ('127.0.0.1', 5000) failed: [Errno 98] Address already in use
+[2026-05-23 19:39:38 +0000] [55501] [ERROR] Connection in use: ('127.0.0.1', 5000)
+[2026-05-23 19:39:38 +0000] [55501] [ERROR] connection to ('127.0.0.1', 5000) failed: [Errno 98] Address already in use
+[2026-05-23 19:39:39 +0000] [55501] [ERROR] Can't connect to ('127.0.0.1', 5000)
+[2026-05-23 19:39:48 +0000] [55533] [INFO] Starting gunicorn 23.0.0
+[2026-05-23 19:39:48 +0000] [55533] [ERROR] Connection in use: ('127.0.0.1', 5000)
+[2026-05-23 19:39:48 +0000] [55533] [ERROR] connection to ('127.0.0.1', 5000) failed: [Errno 98] Address already in use
+[2026-05-23 19:39:49 +0000] [55533] [ERROR] Connection in use: ('127.0.0.1', 5000)
+[2026-05-23 19:39:49 +0000] [55533] [ERROR] connection to ('127.0.0.1', 5000) failed: [Errno 98] Address already in use
+[2026-05-23 19:39:50 +0000] [55533] [ERROR] Connection in use: ('127.0.0.1', 5000)
+[2026-05-23 19:39:50 +0000] [55533] [ERROR] connection to ('127.0.0.1', 5000) failed: [Errno 98] Address already in use
+[2026-05-23 19:39:51 +0000] [55533] [ERROR] Connection in use: ('127.0.0.1', 5000)
+[2026-05-23 19:39:51 +0000] [55533] [ERROR] connection to ('127.0.0.1', 5000) failed: [Errno 98] Address already in use
+[2026-05-23 19:39:52 +0000] [55533] [ERROR] Connection in use: ('127.0.0.1', 5000)
+[2026-05-23 19:39:52 +0000] [55533] [ERROR] connection to ('127.0.0.1', 5000) failed: [Errno 98] Address already in use
+[2026-05-23 19:39:53 +0000] [55533] [ERROR] Can't connect to ('127.0.0.1', 5000)
+[2026-05-23 19:40:54 +0000] [54999] [INFO] Handling signal: term
+[2026-05-23 19:40:54 +0000] [55002] [INFO] Worker exiting (pid: 55002)
+[2026-05-23 19:40:55 +0000] [55001] [INFO] Worker exiting (pid: 55001)
+[2026-05-23 19:40:55 +0000] [55004] [INFO] Worker exiting (pid: 55004)
+[2026-05-23 19:40:55 +0000] [54999] [INFO] Shutting down: Master
+[2026-05-23 19:41:06 +0000] [55777] [INFO] Starting gunicorn 23.0.0
+[2026-05-23 19:41:06 +0000] [55777] [INFO] Listening at: http://127.0.0.1:5000 (55777)
+[2026-05-23 19:41:06 +0000] [55777] [INFO] Using worker: gthread
+[2026-05-23 19:41:06 +0000] [55779] [INFO] Booting worker with pid: 55779
+[2026-05-23 19:41:06 +0000] [55780] [INFO] Booting worker with pid: 55780
+[2026-05-23 19:41:06 +0000] [55781] [INFO] Booting worker with pid: 55781
+[2026-05-23 19:41:49,809] ERROR in app: Exception on /register [POST]
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.IntegrityError: UNIQUE constraint failed: user.email
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/var/www/wiki-cms/app.py", line 118, in register
+    db.session.commit()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/sqlalchemy/orm/scoping.py", line 597, in commit
+    return self._proxied.commit()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2030, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/sqlalchemy/orm/state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1311, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/sqlalchemy/orm/state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1286, in _prepare_impl
+    self.session.flush()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 4331, in flush
+    self._flush(objects)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 4467, in _flush
+    transaction.rollback(_capture_exception=True)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 4427, in _flush
+    flush_context.execute()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1233, in _emit_insert_statements
+    result = connection.execute(
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: user.email
+[SQL: INSERT INTO user (username, password, email, is_admin, created_at) VALUES (?, ?, ?, ?, ?)]
+[parameters: ('houhoudung', 'pbkdf2:sha256:600000$J5zvs5N62JkXnsHW$9529725dfb0e321322124a02fb78eb3579c13e017a782b1efa58d92a0b4773b3', 'nguyenquangdung.9a4.htd@gmail.com', 0, '2026-05-24 02:41:49.808661')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+[2026-05-23 19:44:40 +0000] [55777] [INFO] Handling signal: term
+[2026-05-23 19:44:40 +0000] [55780] [INFO] Worker exiting (pid: 55780)
+[2026-05-23 19:44:40 +0000] [55779] [INFO] Worker exiting (pid: 55779)
+[2026-05-23 19:44:40 +0000] [55781] [INFO] Worker exiting (pid: 55781)
+[2026-05-23 19:44:41 +0000] [55777] [INFO] Shutting down: Master
+[2026-05-23 19:44:44 +0000] [56369] [INFO] Starting gunicorn 23.0.0
+[2026-05-23 19:44:44 +0000] [56369] [INFO] Listening at: http://127.0.0.1:5000 (56369)
+[2026-05-23 19:44:44 +0000] [56369] [INFO] Using worker: gthread
+[2026-05-23 19:44:44 +0000] [56372] [INFO] Booting worker with pid: 56372
+[2026-05-23 19:44:44 +0000] [56373] [INFO] Booting worker with pid: 56373
+[2026-05-23 19:44:44 +0000] [56374] [INFO] Booting worker with pid: 56374
+[2026-05-23 19:48:58 +0000] [56369] [INFO] Handling signal: term
+[2026-05-23 19:48:58 +0000] [56373] [INFO] Worker exiting (pid: 56373)
+[2026-05-23 19:48:58 +0000] [56372] [INFO] Worker exiting (pid: 56372)
+[2026-05-23 19:48:58 +0000] [56374] [INFO] Worker exiting (pid: 56374)
+[2026-05-23 19:48:58 +0000] [56369] [INFO] Shutting down: Master
+[2026-05-23 19:48:59 +0000] [57108] [INFO] Starting gunicorn 23.0.0
+[2026-05-23 19:48:59 +0000] [57108] [INFO] Listening at: http://127.0.0.1:5000 (57108)
+[2026-05-23 19:48:59 +0000] [57108] [INFO] Using worker: gthread
+[2026-05-23 19:48:59 +0000] [57110] [INFO] Booting worker with pid: 57110
+[2026-05-23 19:48:59 +0000] [57111] [INFO] Booting worker with pid: 57111
+[2026-05-23 19:48:59 +0000] [57112] [INFO] Booting worker with pid: 57112
+[2026-05-23 19:49:29 +0000] [57108] [INFO] Handling signal: term
+[2026-05-23 19:49:29 +0000] [57111] [INFO] Worker exiting (pid: 57111)
+[2026-05-23 19:49:29 +0000] [57112] [INFO] Worker exiting (pid: 57112)
+[2026-05-23 19:49:29 +0000] [57110] [INFO] Worker exiting (pid: 57110)
+[2026-05-23 19:49:29 +0000] [57108] [INFO] Shutting down: Master
+[2026-05-23 19:49:47 +0000] [57299] [INFO] Starting gunicorn 23.0.0
+[2026-05-23 19:49:47 +0000] [57299] [INFO] Listening at: http://127.0.0.1:5000 (57299)
+[2026-05-23 19:49:47 +0000] [57299] [INFO] Using worker: gthread
+[2026-05-23 19:49:47 +0000] [57301] [INFO] Booting worker with pid: 57301
+[2026-05-23 19:49:47 +0000] [57302] [INFO] Booting worker with pid: 57302
+[2026-05-23 19:49:47 +0000] [57304] [INFO] Booting worker with pid: 57304
+[2026-05-23 19:51:43 +0000] [57299] [INFO] Handling signal: term
+[2026-05-23 19:51:44 +0000] [57302] [INFO] Worker exiting (pid: 57302)
+[2026-05-23 19:51:44 +0000] [57304] [INFO] Worker exiting (pid: 57304)
+[2026-05-23 19:51:44 +0000] [57301] [INFO] Worker exiting (pid: 57301)
+[2026-05-23 19:51:44 +0000] [57299] [INFO] Shutting down: Master
+[2026-05-23 19:51:45 +0000] [57597] [INFO] Starting gunicorn 23.0.0
+[2026-05-23 19:51:45 +0000] [57597] [INFO] Listening at: http://127.0.0.1:5000 (57597)
+[2026-05-23 19:51:45 +0000] [57597] [INFO] Using worker: gthread
+[2026-05-23 19:51:45 +0000] [57600] [INFO] Booting worker with pid: 57600
+[2026-05-23 19:51:45 +0000] [57601] [INFO] Booting worker with pid: 57601
+[2026-05-23 19:51:45 +0000] [57602] [INFO] Booting worker with pid: 57602
+[2026-05-23 19:51:48,069] ERROR in app: Exception on /admin [GET]
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/var/www/wiki-cms/app.py", line 236, in admin_dashboard
+    return render_template(
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/flask/templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/loaders.py", line 138, in load
+    code = environment.compile(source, name, filename)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/environment.py", line 771, in compile
+    self.handle_exception(source=source_hint)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/var/www/wiki-cms/templates/admin.html", line 352, in template
+    {% endblock %}
+jinja2.exceptions.TemplateSyntaxError: Unexpected end of template. Jinja was looking for the following tags: 'endblock'. The innermost block that needs to be closed is 'block'.
+[2026-05-23 19:51:49,700] ERROR in app: Exception on /admin [GET]
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/var/www/wiki-cms/app.py", line 236, in admin_dashboard
+    return render_template(
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/flask/templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/loaders.py", line 138, in load
+    code = environment.compile(source, name, filename)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/environment.py", line 771, in compile
+    self.handle_exception(source=source_hint)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/var/www/wiki-cms/templates/admin.html", line 352, in template
+    {% endblock %}
+jinja2.exceptions.TemplateSyntaxError: Unexpected end of template. Jinja was looking for the following tags: 'endblock'. The innermost block that needs to be closed is 'block'.
+[2026-05-23 19:51:53,676] ERROR in app: Exception on /admin [GET]
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/var/www/wiki-cms/app.py", line 236, in admin_dashboard
+    return render_template(
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/flask/templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/loaders.py", line 138, in load
+    code = environment.compile(source, name, filename)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/environment.py", line 771, in compile
+    self.handle_exception(source=source_hint)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/var/www/wiki-cms/templates/admin.html", line 352, in template
+    {% endblock %}
+jinja2.exceptions.TemplateSyntaxError: Unexpected end of template. Jinja was looking for the following tags: 'endblock'. The innermost block that needs to be closed is 'block'.
+[2026-05-23 19:51:54,981] ERROR in app: Exception on /admin [GET]
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/var/www/wiki-cms/app.py", line 236, in admin_dashboard
+    return render_template(
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/flask/templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/loaders.py", line 138, in load
+    code = environment.compile(source, name, filename)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/environment.py", line 771, in compile
+    self.handle_exception(source=source_hint)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/var/www/wiki-cms/templates/admin.html", line 352, in template
+    {% endblock %}
+jinja2.exceptions.TemplateSyntaxError: Unexpected end of template. Jinja was looking for the following tags: 'endblock'. The innermost block that needs to be closed is 'block'.
+[2026-05-23 19:52:06,597] ERROR in app: Exception on /admin [GET]
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/var/www/wiki-cms/app.py", line 236, in admin_dashboard
+    return render_template(
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/flask/templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/loaders.py", line 138, in load
+    code = environment.compile(source, name, filename)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/environment.py", line 771, in compile
+    self.handle_exception(source=source_hint)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/var/www/wiki-cms/templates/admin.html", line 352, in template
+    {% endblock %}
+jinja2.exceptions.TemplateSyntaxError: Unexpected end of template. Jinja was looking for the following tags: 'endblock'. The innermost block that needs to be closed is 'block'.
+[2026-05-23 19:52:19,227] ERROR in app: Exception on /admin [GET]
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/var/www/wiki-cms/app.py", line 236, in admin_dashboard
+    return render_template(
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/flask/templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/loaders.py", line 138, in load
+    code = environment.compile(source, name, filename)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/environment.py", line 771, in compile
+    self.handle_exception(source=source_hint)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/var/www/wiki-cms/templates/admin.html", line 352, in template
+    {% endblock %}
+jinja2.exceptions.TemplateSyntaxError: Unexpected end of template. Jinja was looking for the following tags: 'endblock'. The innermost block that needs to be closed is 'block'.
+[2026-05-23 19:52:19,490] ERROR in app: Exception on /admin [GET]
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/var/www/wiki-cms/app.py", line 236, in admin_dashboard
+    return render_template(
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/flask/templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/loaders.py", line 138, in load
+    code = environment.compile(source, name, filename)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/environment.py", line 771, in compile
+    self.handle_exception(source=source_hint)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/var/www/wiki-cms/templates/admin.html", line 352, in template
+    {% endblock %}
+jinja2.exceptions.TemplateSyntaxError: Unexpected end of template. Jinja was looking for the following tags: 'endblock'. The innermost block that needs to be closed is 'block'.
+[2026-05-23 19:52:19,656] ERROR in app: Exception on /admin [GET]
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/var/www/wiki-cms/app.py", line 236, in admin_dashboard
+    return render_template(
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/flask/templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/loaders.py", line 138, in load
+    code = environment.compile(source, name, filename)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/environment.py", line 771, in compile
+    self.handle_exception(source=source_hint)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/var/www/wiki-cms/templates/admin.html", line 352, in template
+    {% endblock %}
+jinja2.exceptions.TemplateSyntaxError: Unexpected end of template. Jinja was looking for the following tags: 'endblock'. The innermost block that needs to be closed is 'block'.
+[2026-05-23 19:53:51 +0000] [57597] [INFO] Handling signal: term
+[2026-05-23 19:53:51 +0000] [57600] [INFO] Worker exiting (pid: 57600)
+[2026-05-23 19:53:51 +0000] [57602] [INFO] Worker exiting (pid: 57602)
+[2026-05-23 19:53:51 +0000] [57601] [INFO] Worker exiting (pid: 57601)
+[2026-05-23 19:53:52 +0000] [57597] [INFO] Shutting down: Master
+[2026-05-23 19:53:53 +0000] [57954] [INFO] Starting gunicorn 23.0.0
+[2026-05-23 19:53:53 +0000] [57954] [INFO] Listening at: http://127.0.0.1:5000 (57954)
+[2026-05-23 19:53:53 +0000] [57954] [INFO] Using worker: gthread
+[2026-05-23 19:53:53 +0000] [57957] [INFO] Booting worker with pid: 57957
+[2026-05-23 19:53:53 +0000] [57958] [INFO] Booting worker with pid: 57958
+[2026-05-23 19:53:53 +0000] [57959] [INFO] Booting worker with pid: 57959
+[2026-05-23 19:57:26 +0000] [57954] [INFO] Handling signal: term
+[2026-05-23 19:57:27 +0000] [57957] [INFO] Worker exiting (pid: 57957)
+[2026-05-23 19:57:27 +0000] [57958] [INFO] Worker exiting (pid: 57958)
+[2026-05-23 19:57:27 +0000] [57959] [INFO] Worker exiting (pid: 57959)
+[2026-05-23 19:57:27 +0000] [57954] [INFO] Shutting down: Master
+[2026-05-23 19:57:28 +0000] [58544] [INFO] Starting gunicorn 23.0.0
+[2026-05-23 19:57:28 +0000] [58544] [INFO] Listening at: http://127.0.0.1:5000 (58544)
+[2026-05-23 19:57:28 +0000] [58544] [INFO] Using worker: gthread
+[2026-05-23 19:57:28 +0000] [58546] [INFO] Booting worker with pid: 58546
+[2026-05-23 19:57:28 +0000] [58547] [INFO] Booting worker with pid: 58547
+[2026-05-23 19:57:28 +0000] [58548] [INFO] Booting worker with pid: 58548
+[2026-05-23 20:05:52 +0000] [58544] [INFO] Handling signal: term
+[2026-05-23 20:05:52 +0000] [58547] [INFO] Worker exiting (pid: 58547)
+[2026-05-23 20:05:52 +0000] [58548] [INFO] Worker exiting (pid: 58548)
+[2026-05-23 20:05:53 +0000] [58546] [INFO] Worker exiting (pid: 58546)
+[2026-05-23 20:05:53 +0000] [59823] [INFO] Starting gunicorn 23.0.0
+[2026-05-23 20:05:53 +0000] [59823] [INFO] Listening at: http://127.0.0.1:5000 (59823)
+[2026-05-23 20:05:53 +0000] [59823] [INFO] Using worker: gthread
+[2026-05-23 20:05:53 +0000] [59825] [INFO] Booting worker with pid: 59825
+[2026-05-23 20:05:53 +0000] [59826] [INFO] Booting worker with pid: 59826
+[2026-05-23 20:05:53 +0000] [58544] [INFO] Shutting down: Master
+[2026-05-23 20:05:53 +0000] [59827] [INFO] Booting worker with pid: 59827
+[2026-05-23 20:07:13 +0000] [59823] [INFO] Handling signal: term
+[2026-05-23 20:07:14 +0000] [59825] [INFO] Worker exiting (pid: 59825)
+[2026-05-23 20:07:14 +0000] [59826] [INFO] Worker exiting (pid: 59826)
+[2026-05-23 20:07:14 +0000] [59827] [INFO] Worker exiting (pid: 59827)
+[2026-05-23 20:07:14 +0000] [59823] [INFO] Shutting down: Master
+[2026-05-23 20:07:15 +0000] [60106] [INFO] Starting gunicorn 23.0.0
+[2026-05-23 20:07:15 +0000] [60106] [INFO] Listening at: http://127.0.0.1:5000 (60106)
+[2026-05-23 20:07:15 +0000] [60106] [INFO] Using worker: gthread
+[2026-05-23 20:07:15 +0000] [60108] [INFO] Booting worker with pid: 60108
+[2026-05-23 20:07:15 +0000] [60110] [INFO] Booting worker with pid: 60110
+[2026-05-23 20:07:15 +0000] [60111] [INFO] Booting worker with pid: 60111
+[2026-05-23 20:08:38 +0000] [60106] [INFO] Handling signal: term
+[2026-05-23 20:08:39 +0000] [60110] [INFO] Worker exiting (pid: 60110)
+[2026-05-23 20:08:39 +0000] [60111] [INFO] Worker exiting (pid: 60111)
+[2026-05-23 20:08:39 +0000] [60108] [INFO] Worker exiting (pid: 60108)
+[2026-05-23 20:08:39 +0000] [60311] [INFO] Starting gunicorn 23.0.0
+[2026-05-23 20:08:39 +0000] [60311] [INFO] Listening at: http://127.0.0.1:5000 (60311)
+[2026-05-23 20:08:39 +0000] [60311] [INFO] Using worker: gthread
+[2026-05-23 20:08:39 +0000] [60313] [INFO] Booting worker with pid: 60313
+[2026-05-23 20:08:39 +0000] [60314] [INFO] Booting worker with pid: 60314
+[2026-05-23 20:08:40 +0000] [60315] [INFO] Booting worker with pid: 60315
+[2026-05-23 20:08:40 +0000] [60106] [INFO] Shutting down: Master
+[2026-05-23 20:09:02 +0000] [60645] [INFO] Starting gunicorn 23.0.0
+[2026-05-23 20:09:02 +0000] [60645] [ERROR] Connection in use: ('127.0.0.1', 5000)
+[2026-05-23 20:09:02 +0000] [60645] [ERROR] connection to ('127.0.0.1', 5000) failed: [Errno 98] Address already in use
+[2026-05-23 20:09:03 +0000] [60645] [ERROR] Connection in use: ('127.0.0.1', 5000)
+[2026-05-23 20:09:03 +0000] [60645] [ERROR] connection to ('127.0.0.1', 5000) failed: [Errno 98] Address already in use
+[2026-05-23 20:09:04 +0000] [60645] [ERROR] Connection in use: ('127.0.0.1', 5000)
+[2026-05-23 20:09:04 +0000] [60645] [ERROR] connection to ('127.0.0.1', 5000) failed: [Errno 98] Address already in use
+[2026-05-23 20:09:05 +0000] [60645] [ERROR] Connection in use: ('127.0.0.1', 5000)
+[2026-05-23 20:09:05 +0000] [60645] [ERROR] connection to ('127.0.0.1', 5000) failed: [Errno 98] Address already in use
+[2026-05-23 20:09:06 +0000] [60645] [ERROR] Connection in use: ('127.0.0.1', 5000)
+[2026-05-23 20:09:06 +0000] [60645] [ERROR] connection to ('127.0.0.1', 5000) failed: [Errno 98] Address already in use
+[2026-05-23 20:09:07 +0000] [60645] [ERROR] Can't connect to ('127.0.0.1', 5000)
+[2026-05-23 20:09:53 +0000] [60311] [INFO] Handling signal: term
+[2026-05-23 20:09:53 +0000] [60315] [INFO] Worker exiting (pid: 60315)
+[2026-05-23 20:09:53 +0000] [60313] [INFO] Worker exiting (pid: 60313)
+[2026-05-23 20:09:54 +0000] [60314] [INFO] Worker exiting (pid: 60314)
+[2026-05-23 20:09:54 +0000] [60311] [INFO] Shutting down: Master
+[2026-05-23 20:10:01 +0000] [60835] [INFO] Starting gunicorn 23.0.0
+[2026-05-23 20:10:01 +0000] [60835] [INFO] Listening at: http://127.0.0.1:5000 (60835)
+[2026-05-23 20:10:01 +0000] [60835] [INFO] Using worker: gthread
+[2026-05-23 20:10:01 +0000] [60837] [INFO] Booting worker with pid: 60837
+[2026-05-23 20:10:01 +0000] [60838] [INFO] Booting worker with pid: 60838
+[2026-05-23 20:10:01 +0000] [60839] [INFO] Booting worker with pid: 60839
+[2026-05-23 20:11:32 +0000] [60835] [INFO] Handling signal: term
+[2026-05-23 20:11:32 +0000] [60839] [INFO] Worker exiting (pid: 60839)
+[2026-05-23 20:11:32 +0000] [60838] [INFO] Worker exiting (pid: 60838)
+[2026-05-23 20:11:32 +0000] [60837] [INFO] Worker exiting (pid: 60837)
+[2026-05-23 20:11:32 +0000] [60835] [INFO] Shutting down: Master
+[2026-05-23 20:11:42 +0000] [61133] [INFO] Starting gunicorn 23.0.0
+[2026-05-23 20:11:42 +0000] [61133] [INFO] Listening at: http://127.0.0.1:5000 (61133)
+[2026-05-23 20:11:42 +0000] [61133] [INFO] Using worker: gthread
+[2026-05-23 20:11:42 +0000] [61136] [INFO] Booting worker with pid: 61136
+[2026-05-23 20:11:42 +0000] [61137] [INFO] Booting worker with pid: 61137
+[2026-05-23 20:11:42 +0000] [61138] [INFO] Booting worker with pid: 61138
+[2026-05-23 20:18:59 +0000] [61133] [INFO] Handling signal: term
+[2026-05-23 20:18:59 +0000] [61138] [INFO] Worker exiting (pid: 61138)
+[2026-05-23 20:18:59 +0000] [61136] [INFO] Worker exiting (pid: 61136)
+[2026-05-23 20:19:00 +0000] [61137] [INFO] Worker exiting (pid: 61137)
+[2026-05-23 20:19:00 +0000] [61133] [INFO] Shutting down: Master
+[2026-05-23 20:19:00 +0000] [62312] [INFO] Starting gunicorn 23.0.0
+[2026-05-23 20:19:00 +0000] [62312] [INFO] Listening at: http://127.0.0.1:5000 (62312)
+[2026-05-23 20:19:00 +0000] [62312] [INFO] Using worker: gthread
+[2026-05-23 20:19:00 +0000] [62314] [INFO] Booting worker with pid: 62314
+[2026-05-23 20:19:00 +0000] [62315] [INFO] Booting worker with pid: 62315
+[2026-05-23 20:19:00 +0000] [62316] [INFO] Booting worker with pid: 62316
+[2026-05-23 20:20:59 +0000] [62312] [INFO] Handling signal: term
+[2026-05-23 20:20:59 +0000] [62315] [INFO] Worker exiting (pid: 62315)
+[2026-05-23 20:20:59 +0000] [62314] [INFO] Worker exiting (pid: 62314)
+[2026-05-23 20:21:00 +0000] [62316] [INFO] Worker exiting (pid: 62316)
+[2026-05-23 20:21:00 +0000] [62312] [INFO] Shutting down: Master
+[2026-05-23 20:21:00 +0000] [62675] [INFO] Starting gunicorn 23.0.0
+[2026-05-23 20:21:00 +0000] [62675] [INFO] Listening at: http://127.0.0.1:5000 (62675)
+[2026-05-23 20:21:00 +0000] [62675] [INFO] Using worker: gthread
+[2026-05-23 20:21:00 +0000] [62681] [INFO] Booting worker with pid: 62681
+[2026-05-23 20:21:00 +0000] [62700] [INFO] Booting worker with pid: 62700
+[2026-05-23 20:21:00 +0000] [62701] [INFO] Booting worker with pid: 62701
+[2026-05-23 20:24:07 +0000] [63465] [INFO] Starting gunicorn 23.0.0
+[2026-05-23 20:24:07 +0000] [63465] [ERROR] Connection in use: ('127.0.0.1', 5000)
+[2026-05-23 20:24:07 +0000] [63465] [ERROR] connection to ('127.0.0.1', 5000) failed: [Errno 98] Address already in use
+[2026-05-23 20:24:08 +0000] [63465] [ERROR] Connection in use: ('127.0.0.1', 5000)
+[2026-05-23 20:24:08 +0000] [63465] [ERROR] connection to ('127.0.0.1', 5000) failed: [Errno 98] Address already in use
+[2026-05-23 20:24:09 +0000] [63465] [ERROR] Connection in use: ('127.0.0.1', 5000)
+[2026-05-23 20:24:09 +0000] [63465] [ERROR] connection to ('127.0.0.1', 5000) failed: [Errno 98] Address already in use
+[2026-05-23 20:24:10 +0000] [63465] [ERROR] Connection in use: ('127.0.0.1', 5000)
+[2026-05-23 20:24:10 +0000] [63465] [ERROR] connection to ('127.0.0.1', 5000) failed: [Errno 98] Address already in use
+[2026-05-23 20:24:11 +0000] [63465] [ERROR] Connection in use: ('127.0.0.1', 5000)
+[2026-05-23 20:24:11 +0000] [63465] [ERROR] connection to ('127.0.0.1', 5000) failed: [Errno 98] Address already in use
+[2026-05-23 20:24:12 +0000] [63465] [ERROR] Can't connect to ('127.0.0.1', 5000)
+[2026-05-23 20:24:50 +0000] [62675] [INFO] Handling signal: term
+[2026-05-23 20:24:50 +0000] [62701] [INFO] Worker exiting (pid: 62701)
+[2026-05-23 20:24:50 +0000] [62681] [INFO] Worker exiting (pid: 62681)
+[2026-05-23 20:24:51 +0000] [62700] [INFO] Worker exiting (pid: 62700)
+[2026-05-23 20:24:51 +0000] [62675] [INFO] Shutting down: Master
+[2026-05-23 20:24:54 +0000] [63625] [INFO] Starting gunicorn 23.0.0
+[2026-05-23 20:24:54 +0000] [63625] [INFO] Listening at: http://127.0.0.1:5000 (63625)
+[2026-05-23 20:24:54 +0000] [63625] [INFO] Using worker: gthread
+[2026-05-23 20:24:54 +0000] [63628] [INFO] Booting worker with pid: 63628
+[2026-05-23 20:24:54 +0000] [63629] [INFO] Booting worker with pid: 63629
+[2026-05-23 20:24:54 +0000] [63630] [INFO] Booting worker with pid: 63630
+[2026-05-23 20:27:47 +0000] [63625] [INFO] Handling signal: term
+[2026-05-23 20:27:48 +0000] [63629] [INFO] Worker exiting (pid: 63629)
+[2026-05-23 20:27:48 +0000] [63630] [INFO] Worker exiting (pid: 63630)
+[2026-05-23 20:27:48 +0000] [63628] [INFO] Worker exiting (pid: 63628)
+[2026-05-23 20:27:48 +0000] [63625] [INFO] Shutting down: Master
+[2026-05-23 20:27:49 +0000] [65093] [INFO] Starting gunicorn 23.0.0
+[2026-05-23 20:27:49 +0000] [65093] [INFO] Listening at: http://127.0.0.1:5000 (65093)
+[2026-05-23 20:27:49 +0000] [65093] [INFO] Using worker: gthread
+[2026-05-23 20:27:49 +0000] [65095] [INFO] Booting worker with pid: 65095
+[2026-05-23 20:27:49 +0000] [65096] [INFO] Booting worker with pid: 65096
+[2026-05-23 20:27:49 +0000] [65097] [INFO] Booting worker with pid: 65097
+[2026-05-23 20:34:40 +0000] [65093] [INFO] Handling signal: term
+[2026-05-23 20:34:40 +0000] [65096] [INFO] Worker exiting (pid: 65096)
+[2026-05-23 20:34:40 +0000] [65095] [INFO] Worker exiting (pid: 65095)
+[2026-05-23 20:34:40 +0000] [65097] [INFO] Worker exiting (pid: 65097)
+[2026-05-23 20:34:40 +0000] [65093] [INFO] Shutting down: Master
+[2026-05-23 20:39:12 +0000] [2484] [INFO] Starting gunicorn 23.0.0
+[2026-05-23 20:39:12 +0000] [2484] [INFO] Listening at: http://127.0.0.1:5000 (2484)
+[2026-05-23 20:39:12 +0000] [2484] [INFO] Using worker: gthread
+[2026-05-23 20:39:12 +0000] [2488] [INFO] Booting worker with pid: 2488
+[2026-05-23 20:39:12 +0000] [2488] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/gunicorn/arbiter.py", line 608, in spawn_worker
+    worker.init_process()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/gunicorn/workers/gthread.py", line 94, in init_process
+    super().init_process()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/gunicorn/workers/base.py", line 135, in init_process
+    self.load_wsgi()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/gunicorn/workers/base.py", line 147, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/gunicorn/app/base.py", line 66, in wsgi
+    self.callable = self.load()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/gunicorn/app/wsgiapp.py", line 57, in load
+    return self.load_wsgiapp()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/gunicorn/app/wsgiapp.py", line 47, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/gunicorn/util.py", line 370, in import_app
+    mod = importlib.import_module(module)
+  File "/usr/lib/python3.8/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1014, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 991, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 973, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'app_ticket_system'
+[2026-05-23 20:39:12 +0000] [2488] [INFO] Worker exiting (pid: 2488)
+[2026-05-23 20:39:12 +0000] [2484] [ERROR] Worker (pid:2488) exited with code 3
+[2026-05-23 20:39:12 +0000] [2484] [ERROR] Shutting down: Master
+[2026-05-23 20:39:12 +0000] [2484] [ERROR] Reason: Worker failed to boot.
+[2026-05-23 20:39:29 +0000] [2531] [INFO] Starting gunicorn 23.0.0
+[2026-05-23 20:39:29 +0000] [2531] [INFO] Listening at: http://127.0.0.1:5000 (2531)
+[2026-05-23 20:39:29 +0000] [2531] [INFO] Using worker: gthread
+[2026-05-23 20:39:29 +0000] [2533] [INFO] Booting worker with pid: 2533
+[2026-05-23 20:39:29 +0000] [2533] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/gunicorn/arbiter.py", line 608, in spawn_worker
+    worker.init_process()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/gunicorn/workers/gthread.py", line 94, in init_process
+    super().init_process()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/gunicorn/workers/base.py", line 135, in init_process
+    self.load_wsgi()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/gunicorn/workers/base.py", line 147, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/gunicorn/app/base.py", line 66, in wsgi
+    self.callable = self.load()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/gunicorn/app/wsgiapp.py", line 57, in load
+    return self.load_wsgiapp()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/gunicorn/app/wsgiapp.py", line 47, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/gunicorn/util.py", line 370, in import_app
+    mod = importlib.import_module(module)
+  File "/usr/lib/python3.8/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1014, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 991, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 973, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'app_ticket_system'
+[2026-05-23 20:39:29 +0000] [2533] [INFO] Worker exiting (pid: 2533)
+[2026-05-23 20:39:29 +0000] [2531] [ERROR] Worker (pid:2533) exited with code 3
+[2026-05-23 20:39:29 +0000] [2531] [ERROR] Shutting down: Master
+[2026-05-23 20:39:29 +0000] [2531] [ERROR] Reason: Worker failed to boot.
+[2026-05-23 20:45:20 +0000] [3458] [INFO] Starting gunicorn 23.0.0
+[2026-05-23 20:45:20 +0000] [3458] [INFO] Listening at: http://127.0.0.1:5000 (3458)
+[2026-05-23 20:45:20 +0000] [3458] [INFO] Using worker: gthread
+[2026-05-23 20:45:20 +0000] [3460] [INFO] Booting worker with pid: 3460
+[2026-05-23 20:45:20 +0000] [3461] [INFO] Booting worker with pid: 3461
+[2026-05-23 20:45:20 +0000] [3460] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/gunicorn/arbiter.py", line 608, in spawn_worker
+    worker.init_process()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/gunicorn/workers/gthread.py", line 94, in init_process
+    super().init_process()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/gunicorn/workers/base.py", line 135, in init_process
+    self.load_wsgi()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/gunicorn/workers/base.py", line 147, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/gunicorn/app/base.py", line 66, in wsgi
+    self.callable = self.load()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/gunicorn/app/wsgiapp.py", line 57, in load
+    return self.load_wsgiapp()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/gunicorn/app/wsgiapp.py", line 47, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/gunicorn/util.py", line 370, in import_app
+    mod = importlib.import_module(module)
+  File "/usr/lib/python3.8/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1014, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 991, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 973, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'app_ticket_system'
+[2026-05-23 20:45:20 +0000] [3460] [INFO] Worker exiting (pid: 3460)
+[2026-05-23 20:45:20 +0000] [3461] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/gunicorn/arbiter.py", line 608, in spawn_worker
+    worker.init_process()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/gunicorn/workers/gthread.py", line 94, in init_process
+    super().init_process()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/gunicorn/workers/base.py", line 135, in init_process
+    self.load_wsgi()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/gunicorn/workers/base.py", line 147, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/gunicorn/app/base.py", line 66, in wsgi
+    self.callable = self.load()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/gunicorn/app/wsgiapp.py", line 57, in load
+    return self.load_wsgiapp()
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/gunicorn/app/wsgiapp.py", line 47, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/home/ubuntu/.local/lib/python3.8/site-packages/gunicorn/util.py", line 370, in import_app
+    mod = importlib.import_module(module)
+  File "/usr/lib/python3.8/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1014, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 991, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 973, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'app_ticket_system'
+[2026-05-23 20:45:20 +0000] [3461] [INFO] Worker exiting (pid: 3461)
+[2026-05-23 20:45:20 +0000] [3458] [ERROR] Worker (pid:3461) exited with code 3
+[2026-05-23 20:45:20 +0000] [3458] [ERROR] Worker (pid:3460) was sent SIGTERM!
+[2026-05-23 20:45:20 +0000] [3458] [ERROR] Shutting down: Master
+[2026-05-23 20:45:20 +0000] [3458] [ERROR] Reason: Worker failed to boot.

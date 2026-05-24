@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Đăng Ký - GenZ Era Wiki{% endblock %}
+
+{% block content %}
+<div style="max-width: 400px; margin: 60px auto; background: var(--panel); padding: 40px; border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+    <h2 style="text-align: center; color: var(--cyan); margin-bottom: 30px;">✨ Đăng Ký</h2>
+    
+    <form id="registerForm">
+        <input type="text" id="username" placeholder="Tên người dùng" required="" style="width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; font-size: 1rem;">
+        <input type="email" id="email" placeholder="Email" required="" style="width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; font-size: 1rem;">
+        <input type="password" id="password" placeholder="Mật khẩu" required="" style="width: 100%; padding: 12px; margin-bottom: 25px; border-radius: 8px; font-size: 1rem;">
+        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px; font-size: 1.1rem; font-weight: 600;">Đăng Ký</button>
+    </form>
+
+    <p style="text-align: center; margin-top: 20px; color: var(--muted);">
+        Đã có tài khoản? <a href="/login" style="color: var(--cyan); text-decoration: none; font-weight: 600;">Đăng Nhập</a>
+    </p>
+</div>
+
+<script>
+    document.getElementById('registerForm').onsubmit = async (e) => {
+        e.preventDefault();
+        const res = await fetch('/register', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                username: username.value,
+                email: email.value,
+                password: password.value
+            })
+        });
+        const data = await res.json();
+        if (data.success) {
+            showNotification('Đăng ký thành công!', 'success', '/');
+        } else {
+            showNotification(data.error || 'Lỗi đăng ký!', 'error');
+        }
+    };
+</script>
+{% endblock %}
