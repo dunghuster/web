@@ -155,7 +155,7 @@ def recharge_page():
     user = get_current_user()
     if not user:
         return "Bạn cần đăng nhập để nạp.", 401
-    return render_template('recharge.html')
+    return render_template('recharge.html', user=user)
 
 @app.route('/api/recharge/vietqr', methods=['POST'])
 def api_recharge_vietqr():
@@ -194,6 +194,27 @@ def api_recharge_vietqr():
         'amount': amount,
         'code': code,
         'qr_url': qr_url
+    }), 200
+
+@app.route('/api/recharge/status')
+def api_recharge_status():
+    user = get_current_user()
+    if not user:
+        return jsonify({'error': 'Bạn cần đăng nhập'}), 401
+
+    code = (request.args.get('code') or '').strip().upper()
+    if not code:
+        return jsonify({'error': 'Thiếu mã nạp'}), 400
+
+    topup = Topup.query.filter_by(code=code, user_id=user.id).first()
+    if not topup:
+        return jsonify({'error': 'Không tìm thấy mã nạp'}), 404
+
+    return jsonify({
+        'status': topup.status,
+        'amount': int(topup.amount),
+        'balance': int(user.balance or 0),
+        'paid_at': topup.paid_at.isoformat() if topup.paid_at else None
     }), 200
 
 # ==================== SEPAY WEBHOOK ====================
